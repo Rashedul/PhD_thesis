@@ -3,6 +3,8 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 
 ### Source code
 
+#### [Commands and parameters for bioinformatic tools](https://github.com/Rashedul/PhD_thesis/blob/main/Command.md)
+
 #### Chapter 1: Introduction
 
 #### Chapter 2: RUNX1 colludes with NOTCH1 to reprogram chromatin in T-cell lymphoblastic leukemia
@@ -15,8 +17,6 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 - [data analysis and visualization](https://github.com/Rashedul/PhD_thesis/blob/main/Chapter_4.md)
 
 #### Chapter 1: Conclusion 
-
-#### [Commands and parameters for bioinformatic tools](https://github.com/Rashedul/PhD_thesis/blob/main/Command.md)
 
 ### Data
 #### Chapter 2: 
