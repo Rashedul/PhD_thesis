@@ -19,17 +19,18 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 #### [Commands and parameters for bioinformatic tools](https://github.com/Rashedul/PhD_thesis/blob/main/Command.md)
 
 ### Data
-#### Chapter 1: 
+#### Chapter 2: 
 - Raw sequencing data is available 
 - Processed files: bed files and RPKM matrices of gene expression. 
 
-#### Chapter 2: 
+#### Chapter 3: 
 - Raw sequencing data is available at CEMT and Blueprint.
 - Pipeline: https://github.com/Rashedul/CRIS 
 
-#### Chapter 3: 
+#### Chapter 4: 
 - Raw sequencing data is available at CEMT and Blueprint.
 - Processed files: bed files and RPKM matrices of gene expression. 
 
 ### Publications 
 
+- Catherine E. Jenkins, Samuel Gusscott, Rachel J. Wong, Olena O. Shevchuk, Gurneet Rana, Vincenzo Giambra, Kateryna Tyshchenko, Rashedul Islam, Martin Hirst, Andrew P. Weng. [RUNX1 promotes cell growth in human T-cell acute lymphoblastic leukemia by transcriptional regulation of key target genes](https://pubmed.ncbi.nlm.nih.gov/29733873/). Experimental Hematology. 2018 Aug; 64:84-96. 
