@@ -14,20 +14,20 @@ java 1.6.0
 samtools 1.2
 htslib 1.2.1
 bedtools 2.29.0
+R 4.1.1
+
 ```
 
 ### Commands
+
 #### Alignment of short reads
 
 ```
 # index genome
 bwa index reference_genome.fa
 
-# align reads
-bwa mem 
-
-# sort reads 
-sambamba sort -t 24 file.bam
+# align reads, convert sam to bam file and sort by coordinates
+bwa mem -t 24 bwa_genome_index file_R1.fastq file_R2.fastq | sambamba view -S -h -f bam -t 24 /dev/stdin | sambamba sort -t 24 --tmpdir=/path/ /dev/stdin -o /outpath/file.sorted.bam
 
 # mark duplicated reads
 java -jar -Xmx10G /home/pubseq/BioSw/picard/picard-tools-1.52/MarkDuplicates.jar I=file.sorted.bam O=file.sorted.dups_marked.bam M=dups AS=true VALIDATION_STRINGENCY=LENIENT QUIET=true
