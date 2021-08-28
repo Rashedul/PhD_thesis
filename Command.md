@@ -15,7 +15,6 @@ samtools 1.2
 htslib 1.2.1
 bedtools 2.29.0
 R 4.1.1
-
 ```
 
 ### Commands
@@ -31,12 +30,10 @@ bwa mem -t 24 bwa_genome_index file_R1.fastq file_R2.fastq | sambamba view -S -h
 
 # mark duplicated reads
 java -jar -Xmx10G /home/pubseq/BioSw/picard/picard-tools-1.52/MarkDuplicates.jar I=file.sorted.bam O=file.sorted.dups_marked.bam M=dups AS=true VALIDATION_STRINGENCY=LENIENT QUIET=true
-
 ```
 #### ChIP-seq track normalization
 
 ```
 #deeptools
 bamCoverage -b file.bam -o /outpath/file.bam.bw -of bigwig -bs 50 --effectiveGenomeSize 2913022398 --normalizeUsing RPKM --extendReads --ignoreDuplicates -p max/2
-
 ```
