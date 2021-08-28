@@ -33,4 +33,4 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 
 ### Publications 
 
-- Catherine E. Jenkins, Samuel Gusscott, Rachel J. Wong, Olena O. Shevchuk, Gurneet Rana, Vincenzo Giambra, Kateryna Tyshchenko, Rashedul Islam, Martin Hirst, Andrew P. Weng. [RUNX1 promotes cell growth in human T-cell acute lymphoblastic leukemia by transcriptional regulation of key target genes](https://pubmed.ncbi.nlm.nih.gov/29733873/). Experimental Hematology. 2018 Aug; 64:84-96. 
+- Catherine E. Jenkins, Samuel Gusscott, Rachel J. Wong, Olena O. Shevchuk, Gurneet Rana, Vincenzo Giambra, Kateryna Tyshchenko, *Rashedul Islam*, Martin Hirst, Andrew P. Weng. [RUNX1 promotes cell growth in human T-cell acute lymphoblastic leukemia by transcriptional regulation of key target genes](https://pubmed.ncbi.nlm.nih.gov/29733873/). Experimental Hematology. 2018 Aug; 64:84-96. 
