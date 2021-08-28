@@ -14,13 +14,13 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 #### Chapter 4: Aberrant chromatin landscape in chronic lymphocytic leukemia
 - [data analysis and visualization](https://github.com/Rashedul/PhD_thesis/blob/main/Chapter_4.md)
 
-#### Chapter 1: Conclusion
+#### Chapter 1: Conclusion 
 
 #### [Commands and parameters for bioinformatic tools](https://github.com/Rashedul/PhD_thesis/blob/main/Command.md)
 
 ### Data
 #### Chapter 2: 
-- Raw sequencing data is available 
+- Raw sequencing data is available via accession number GSE99706.
 - Processed files: bed files and RPKM matrices of gene expression. 
 
 #### Chapter 3: 
