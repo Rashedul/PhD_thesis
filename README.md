@@ -6,17 +6,17 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 #### Chapter 1: Introduction
 
 #### Chapter 2: RUNX1 colludes with NOTCH1 to reprogram chromatin in T-cell lymphoblastic leukemia
-- [data analysis and visualization]()
+- [data analysis and visualization](https://github.com/Rashedul/PhD_thesis/blob/main/Chapter_2.md)
 
 #### Chapter 3: CRIS: Complete Reconstruction of Immunoglobulin V-D-J Sequences from RNA-seq data
-- data analysis and visualization
+- [data analysis and visualization](https://github.com/Rashedul/PhD_thesis/blob/main/Chapter_3.md)
 
 #### Chapter 4: Aberrant chromatin landscape in chronic lymphocytic leukemia
-- data analysis and visualization
+- [data analysis and visualization](https://github.com/Rashedul/PhD_thesis/blob/main/Chapter_4.md)
 
 #### Chapter 1: Conclusion
 
-#### Commands and parameters for tools
+#### [Commands and parameters for bioinformatic tools](https://github.com/Rashedul/PhD_thesis/blob/main/Command.md)
 
 ### Data
 #### Chapter 1: 
