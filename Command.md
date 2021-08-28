@@ -1,29 +1,13 @@
-# PhD_thesis
+#### alignment of short reads
 
-This repository contains the source codes used 
+```
+bwa mem 
 
-#### Source code
+```
+#### ChIP-seq track normalization
 
-# Commands and parameters for tools
+```
+#deeptools
+bamCoverage -b file.bam -o /outpath/file.bam.bw -of bigwig -bs 50 --effectiveGenomeSize 2913022398 --normalizeUsing RPKM --extendReads --ignoreDuplicates -p max/2
 
-# Chapter 1: data analysis and visualization
-
-# Chapter 2: data analysis and visualization
-
-# Chapter 3: data analysis and visualization
-
-#### Data
-# Chapter 1: 
-- Raw sequencing data is available 
-- Processed files: bed files and RPKM matrices of gene expression. 
-
-# Chapter 2: 
-- Raw sequencing data is available at CEMT and Blueprint.
-- Pipeline: 
-
-# Chapter 3: 
-- Raw sequencing data is available at CEMT and Blueprint.
-- Processed files: bed files and RPKM matrices of gene expression. 
-
-#### Publications 
-
+```
