@@ -24,12 +24,14 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 - Processed files: bed files and RPKM matrices of gene expression. 
 
 #### Chapter 3: 
-- Raw sequencing data is available at CEMT and Blueprint.
+- Raw sequencing data is available at [CEMT](https://thisisepigenetics.ca/data/CEMT/epi2021/grid/) and [BLUEPRINT](http://dcc.blueprint-epigenome.eu/#/home).
 - Pipeline: https://github.com/Rashedul/CRIS 
 
 #### Chapter 4: 
-- Raw sequencing data is available at CEMT and Blueprint.
+- Raw sequencing data is available at [CEMT](https://thisisepigenetics.ca/data/CEMT/epi2021/grid/) and [BLUEPRINT](http://dcc.blueprint-epigenome.eu/#/home).
 - Processed files: bed files and RPKM matrices of gene expression. 
+
+### [Thesis at UBC library](https://open.library.ubc.ca/) 
 
 ### Publications 
 
