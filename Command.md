@@ -17,6 +17,7 @@ bedtools 2.29.0
 R 4.1.1
 macs2 2.1.1.20160309
 finder 2
+Jaguar 
 ```
 
 ### Commands
@@ -98,122 +99,13 @@ done >trackDb.txt
 #link hubs
 http://www.epigenomes.ca/data/CLL_rislam/H3K36me3/hub.txt 
 
-## analysis of differential ChIP-seq regions. Differential ChIP-seq regions were called using an in-house pipeline.
-
-# filter region: merge de regions within 100bp, min 300bp, pvalue 0.03 
-
-cd $outdir
-while read line; do 
-	echo $line;
-	cat $indir/$line*0.03 | sed 's/,/\t/g' | grep -v "chromosome" | awk '{print $1 "\t" $2 "\t" $2+50 "\t" $5 "\t" $8 "\t" $12 "\t" $13} ' | sort -k1,1 -k2,2n | bedtools merge -d 100 -c 4,5,6 -o mean,mean,collapse -i stdin | awk '$3-$2 >=300{print $0}' >$line.100bpMerge_300bpMin_0.03Pvalue;  
-done <$file
-
-# get cell types enriched over other
-for f in *_0.03Pvalue; do 
-	echo $f; 
-	for cell in CLL NBC GCBC PBC MBC cll_unmutated cll_mutated del_CT wt; do 
-		echo $cell; 
-		echo ${f%.100bpMerge_300bpMin_0.03Pvalue}"_where_"$cell"_enriched";
-		less $f  | grep $cell >${f%.100bpMerge_300bpMin_0.03Pvalue}"_where_"$cell"_enriched";
-	done
-done
-
-# remove unnecessary files
-ls -l *_enriched | awk '$5==0{print "rm" "\t" $9}' >remove_emptyfiles.sh
-bash remove_emptyfiles.sh 
-rm *_0.03Pvalue remove_emptyfiles.sh
-
-# CLL vs 4 others
-# get marks enriched (UP) in 3/4 comparisons
-mkdir -p cll_bcell
-for mark in H3K27ac H3K27me3 H3K4me3 H3K4me1 H3K9me3 H3K36me3; do 
-	echo $mark;
-	for cell in CLL NBC GCBC PBC MBC; do 
-		echo $cell; 
-		ls -l $mark*"where_"$cell"_enriched"; 
-		bedtools multiinter -i $mark*"where_"$cell"_enriched" | awk '$4>=3{print}' | sort -k1,1 -k2,2n | bedtools merge -i stdin >./cll_bcell/$mark"_"$cell"_enriched_over_others.bed";
-	done
-done
-
-# make heatmap matrix all marks
-# loop: CLL + 4 bcells
-cd $outdir/cll_bcell
-mkdir -p matrix
-
-for mark in H3K27ac H3K27me3 H3K4me3  H3K4me1  H3K9me3  H3K36me3; do
-	for cell in CLL NBC GCBC PBC MBC; do
-		ls -l $mark"_"$cell"_enriched_over_others.bed"; 
-		less $mark"_"$cell"_enriched_over_others.bed" | awk '{print $1"_"$2"_"$3}' >A.intersect.value;
-		for f in $bed/*$mark*bed;  do 
-			outfile=$(basename $f);
-			intersectBed -a <( less $mark"_"$cell"_enriched_over_others.bed" | awk '{print $1 "\t" $2 "\t" $3}') -b <(less $f | awk '{print $1 "\t" $2 "\t" $3}' ) -wao | awk '{print $1"_"$2"_"$3 "\t" $0}' | awk '!seen[$1]++' | awk '{print $8}' >$outfile.intersect.value;
-		done
-		((echo *intersect.value |tr ' ' '\t') && (paste *.intersect.value)) >./matrix/$mark.$cell".enriched_over4cell_0.75percent_matrix.tsv";
-		rm *intersect.value
-	done
-done 
-
-
-# remove unnecessary files
-rm *intersect.value
-
-# get marks NOT enriched (DN) in CLL in 3/4 comparisons
-cd $outdir
-
-#CLL
-for mark in H3K27ac H3K27me3 H3K4me3  H3K4me1  H3K9me3  H3K36me3; do
-	ls -l $mark"_CLL_"*"BC_enriched"; 
-	bedtools multiinter -i $mark"_CLL_"*"BC_enriched" | awk '$4>=3{print}' | sort -k1,1 -k2,2n | bedtools merge -i stdin >./cll_bcell/$mark"_CLL_not_enriched_over_others.bed";
-done
-
-#NBC
-for mark in H3K27ac H3K27me3 H3K4me3  H3K4me1  H3K9me3  H3K36me3; do
-	echo $mark; 
-	bedtools multiinter -i $mark"_CLL_NBC_where_CLL_enriched" $mark"_GCBC_NBC_where_GCBC_enriched" $mark"_MBC_NBC_where_MBC_enriched" $mark"_NBC_PBC_where_PBC_enriched" | awk '$4>=3{print}' | sort -k1,1 -k2,2n | bedtools merge -i stdin >./cll_bcell/$mark"_NBC_not_enriched_over_others.bed";
-done
-
-#GCBC
-ll H3K9me3*GCBC*
-for mark in H3K27ac H3K27me3 H3K4me3  H3K4me1  H3K9me3  H3K36me3; do
-	echo $mark; 
-	bedtools multiinter -i $mark"_CLL_GCBC_where_CLL_enriched" $mark"_GCBC_MBC_where_MBC_enriched" $mark"_GCBC_NBC_where_NBC_enriched" $mark"_GCBC_PBC_where_PBC_enriched" | awk '$4>=3{print}' | sort -k1,1 -k2,2n | bedtools merge -i stdin >./cll_bcell/$mark"_GCBC_not_enriched_over_others.bed";
-done
-
-#MBC
-ll H3K9me3*MBC*
-for mark in H3K27ac H3K27me3 H3K4me3  H3K4me1  H3K9me3  H3K36me3; do
-	echo $mark; 
-	bedtools multiinter -i $mark"_CLL_MBC_where_CLL_enriched" $mark"_GCBC_MBC_where_GCBC_enriched" $mark"_MBC_NBC_where_NBC_enriched" $mark"_MBC_PBC_where_PBC_enriched" | awk '$4>=3{print}' | sort -k1,1 -k2,2n | bedtools merge -i stdin >./cll_bcell/$mark"_MBC_not_enriched_over_others.bed";
-done
-
-#PBC
-ll H3K9me3*PBC*
-for mark in H3K27ac H3K27me3 H3K4me3  H3K4me1  H3K9me3  H3K36me3; do
-	echo $mark; 
-	bedtools multiinter -i $mark"_CLL_PBC_where_CLL_enriched" $mark"_GCBC_PBC_where_GCBC_enriched" $mark"_MBC_PBC_where_MBC_enriched" $mark"_NBC_PBC_where_NBC_enriched" | awk '$4>=3{print}' | sort -k1,1 -k2,2n | bedtools merge -i stdin >./cll_bcell/$mark"_PBC_not_enriched_over_others.bed";
-done
-
-# make heatmap matrix for all marks
-# loop: CLL + 4 bcells
-cd $outdir/cll_bcell
-bed=/pathToBedfiles/
-
-for mark in H3K27ac H3K27me3 H3K4me3  H3K4me1  H3K9me3  H3K36me3; do
-		ls -l $mark"_CLL_not_enriched_over_others.bed"; 
-		less $mark"_CLL_not_enriched_over_others.bed" | awk '{print $1"_"$2"_"$3}' >A.intersect.value;
-		for f in $bed/*$mark*bed;  do 
-			outfile=$(basename $f);
-			intersectBed -a <( less $mark"_CLL_not_enriched_over_others.bed" | awk '{print $1 "\t" $2 "\t" $3}') -b <(less $f | awk '{print $1 "\t" $2 "\t" $3}' ) -wao | awk '{print $1"_"$2"_"$3 "\t" $0}' | awk '!seen[$1]++' | awk '{print $8}' >$outfile.intersect.value;
-		done 
-		((echo *intersect.value |tr ' ' '\t') && (paste *.intersect.value)) >./matrix/$mark"CLL_not_enriched_over4cell_0.75percent_matrix.tsv";
-		rm *intersect.value
-done 
+# Differential ChIP-seq regions were called using an in-house pipeline. The method is described in chapter 4.
 ```
 
 #### RNA-seq data analysis
 
 ```
-# repositioning 
+# repositioning by Jaguar
 
 # RNAseq master (in-house) 
 
@@ -224,7 +116,7 @@ done
 ```
 # alignment using novoalign 
 
-# combine CpGs
+# combine CpGs (in-house)
 
-# call fraction of methylation
+# call fraction of methylation (in-house)
 ```
