@@ -21,7 +21,7 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 ## Data
 #### Chapter 2: 
 - Raw sequencing data is available via accession number GSE99706.
-- Processed files: [bed files, super-enhanceers, and RPKM matrices of gene expression.](https://github.com/Rashedul/PhD_thesis/tree/main/data/chapter-2) 
+- Processed files: [bed files, super-enhanceers, differentially expressed genes and RPKM matrix of gene expression.](https://github.com/Rashedul/PhD_thesis/tree/main/data/chapter-2) 
 
 #### Chapter 3: 
 - Raw sequencing data is available at [CEMT](https://thisisepigenetics.ca/data/CEMT/epi2021/grid/) and [BLUEPRINT](http://dcc.blueprint-epigenome.eu/#/home).
@@ -29,7 +29,7 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 
 #### Chapter 4: 
 - Raw sequencing data is available at [CEMT](https://thisisepigenetics.ca/data/CEMT/epi2021/grid/) and [BLUEPRINT](http://dcc.blueprint-epigenome.eu/#/home).
-- Processed files: [bed files of ChIP-seq data related to CEMT samples.](https://github.com/Rashedul/PhD_thesis/tree/main/data/chapter-4)
+- Processed files: [bed files, super-enhanceers, differentially expressed genes and RPKM matrix of gene expression.](https://github.com/Rashedul/PhD_thesis/tree/main/data/chapter-4)
 
 ## [Thesis at UBC library](https://open.library.ubc.ca/) 
 
