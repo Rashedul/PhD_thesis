@@ -17,7 +17,7 @@ bedtools 2.29.0
 R 4.1.1
 macs2 2.1.1.20160309
 finder 2
-Jaguar 
+Jaguar 1.7.5
 ```
 
 ### Commands
@@ -105,18 +105,42 @@ http://www.epigenomes.ca/data/CLL_rislam/H3K36me3/hub.txt
 #### RNA-seq data analysis
 
 ```
-# repositioning by Jaguar
+# repositioning by Jaguar. Every different read length has a different Jaguar reference! 
+jaguar_ref=/path/ref.fa
+
+# NOTE: BAM FOR JAGUAR MUST BE NAME SORTED!
+bwa mem -M -P -t 16 $jaguar_ref <FQ1> <FQ2>  | sambamba_v0.5.5 view -S -h -f bam -t 16 /dev/stdin | sambamba_v0.5.5 sort -t 16 -n /dev/stdin -o <BAM>
+
+# Run repositioning by Jaguar. RunJR.sh is an in-house script
+# Example of command with hg19v69
+RunJR.sh $out/$lib".sortedByName.bam" $out/j hg19_ens69
 
 # RNAseq master (in-house) 
-
+# RNAseqMaster.sh is the master script to run number of tools and generate an extensive QC report and RPKM matrix.
+RNAseqMaster.sh <1: bam file (long path)> <2: name> <3: folder with all output (will be this PATH/name)> <4: species (hg19v66/...)> <5: strand specific(S)/regular(R)> <6: quality threshold> <7: running mask COVERAGE,RPKM,LEAKAGE,PROFILE,REPORT (1==run, 0==don't run))> <8: path to resource folder, e.g. /project/epigenomics/resources/> [<9: java>] [<10: java max heap space>
+ 
+OUTPUT: coverage files and coverage distributions; note that for strand specific RNA-seq coverages are calculated for proper strand and then cat together
 ```
 
 #### WGBS data analysis
 
 ```
-# alignment using novoalign 
+## Bisulfite Conversion Rate Computation Using Novomethyl
+# Novomethyl requires two preliminary steps: split of the bam file into CT and GA strands, samtools mpileup (steps 1 and 2 below)
+samtools view -h <SortedDupedBAMfile> | grep -e "^@\|ZB:Z:CT" | $samtools view -ubS - | $samtools sort - <FileName>.<species>.CT
+samtools view -h <SortedDupedBAMfile> | grep -e "^@\|ZB:Z:GA" | $samtools view -ubS - | $samtools sort - <FileName>.<species>.GA
 
-# combine CpGs (in-house)
+# Running samtools mpileup
+samtools mpileup -BC 0 -q 30 -f <PathToReferenceGenomeFastaFile> <FileName>.<species>.CT.bam <FileName>.<species>.GA.bam | gzip -c > <FileName>.<species>.mpileup.txt.gz
 
-# call fraction of methylation (in-house)
+# Running Novomethyl (for human and lambda spike in control)
+gunzip -c <FileName>.<species>.mpileup.txt.gz | <PathToNovomethyl> -o Consensus -% 2> <FileName>.<species>.methylation.log |gzip -c > <FileName>.<species>.Cmethyl.cons.bed.gz
+
+# The last lines of the methylation log file shows the estimated bisulfite conversion rate.
+tail -2 output_filename.methylation.log
+
+# run Novo5mc (in-house)
+java -jar -Xmx10G Novo5mC.jar -bam file.bam -out /path/  -genome $human_ref -q5 -F 1540 -minCoverage 3 -name output_filename -samtools samtools -regions 1 > /desired/path/to/your/log/file.log
+
+OUTPUT: This generates a file bearing the information of number of reads were conver or unconverted follwoing bisulfite conversion.
 ```
