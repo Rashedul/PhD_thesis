@@ -16,7 +16,7 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 
 #### Chapter 5: Conclusion 
 
-#### [Commands and parameters for bioinformatic tools](https://github.com/Rashedul/PhD_thesis/blob/main/Command.md)
+- [commands and parameters for bioinformatic tools](https://github.com/Rashedul/PhD_thesis/blob/main/script/Command.md)
 
 ## Data
 #### Chapter 2: 
