@@ -3,7 +3,7 @@ comparisons/
 thesis_chapter2_files/
 
 bkCommand.md
-*html
-*Rmd
+*.html
+*.Rmd
 
 .DS_Store
