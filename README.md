@@ -16,7 +16,7 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 
 #### Chapter 5: Conclusion 
 
-- [commands and parameters for bioinformatic tools](https://github.com/Rashedul/PhD_thesis/blob/main/script/Command.md)
+#### Commands and parameters for bioinformatic tools](https://github.com/Rashedul/PhD_thesis/blob/main/script/Command.md)
 
 ## Data
 #### Chapter 2: 
@@ -34,6 +34,8 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 ## [Thesis at UBC library](https://open.library.ubc.ca/) 
 
 ## Publications 
+
+- **Rashedul Islam**, Misha Bilenky, Andrew P. Weng, Joseph M. Connors and Martin Hirst. CRIS: Complete Reconstruction of Immunoglobulin V-D-J Sequences from RNA-seq data. In press, *Bioinformatics Advances*.
 
 - Catherine E. Jenkins, Samuel Gusscott, Rachel J. Wong, Olena O. Shevchuk, Gurneet Rana, Vincenzo Giambra, Kateryna Tyshchenko, **Rashedul Islam**, Martin Hirst, Andrew P. Weng. [RUNX1 promotes cell growth in human T-cell acute lymphoblastic leukemia by transcriptional regulation of key target genes](https://pubmed.ncbi.nlm.nih.gov/29733873/). *Experimental Hematology*. 2018 Aug; 64:84-96. 
 
