@@ -17,7 +17,7 @@ knitr::opts_knit$set(root.dir = '/Users/rashedulislam/Documents/PhD_thesis/scrip
 ```
 
 
-###load libs
+## load libs
 
 Run this chunk before you run entire rmd file.
 
@@ -34,10 +34,9 @@ library(matrixStats)
 
 ```
 
-> Number of superenhancer 
+## Number of superenhancer 
 
-```{r, eval=FALSE}
-library(tidyverse)
+```{r, eval=T}
 #
 df = data.frame("NOTCH1-CTL" = 612, "NOTCH1-INB" = 456, "RUNX1-CTL" = 332, "RUNX1-KD" = 180) %>% melt()
 ggplot(df, aes(variable, value)) +
@@ -49,7 +48,7 @@ ggplot(df, aes(variable, value)) +
 ```
 
 
-> Differential regions for all marks
+## Differential regions for all marks
 
 ```{r, message=FALSE, warning = FALSE}
 #ac
@@ -151,40 +150,6 @@ n = notch1 %>%
   summarize(n = n()) %>%
   mutate(freq = n / sum(n)) %>%
   mutate(Cell = rep("NOTCH1-KD", 3))
-
-r %>%
-  ggplot(aes(DE, freq)) +
-  geom_bar(stat = "identity") +
-        xlab("") +
-    ylab("Fraction of peaks") +
-  facet_grid(~Mark, scales="free") +
-    theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(fill = NA, colour = "gray", size = 1),
-        strip.text = element_text( size = 10),
-        strip.background =element_rect(fill="white"),
-        text = element_text(size=10),
-        axis.text = element_text(color = "black"),
-        legend.position = "none") +
-    theme(axis.text = element_text(color = "black", angle = 90, hjust = 1))
-
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/Frac_ERs_RUNX1.pdf", width = 14, height = 6, units = "cm")
-
-n %>%
-  ggplot(aes(DE, freq)) +
-  geom_bar(stat = "identity") +
-        xlab("") +
-    ylab("Fraction of peaks") +
-  facet_grid(~Mark, scales="free") +
-    theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(fill = NA, colour = "gray", size = 1),
-        strip.text = element_text(face = "bold", size = 18),
-        strip.background =element_rect(fill="white"),
-        text = element_text(size=18, face = "bold"),
-        axis.text = element_text(color = "black"),
-        legend.position = "none") +
-    theme(axis.text = element_text(color = "black", angle = 90, hjust = 1))
-
-#number of merged peaks
 
 #
 rbind( n, r ) %>%
@@ -294,7 +259,7 @@ ggplot(bx2, aes(x = log10(Width), y = -log10(FC),colour = DE)) +
     theme(legend.position="none")
 ```
 
-> profile for de peaks
+## profile for de peaks
 
 ```{r , message=FALSE, warning = FALSE}
 
@@ -333,7 +298,7 @@ k.ac3 %>%
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/RUNX1-cov.pdf", width = 6, height = 6, units = "cm")
 ```
 
-# H3K27ac peak width distribution
+## H3K27ac peak width distribution
 
 ```{r, message=FALSE, warning = FALSE}
 
@@ -378,7 +343,7 @@ ggplot(aes(V13, V5)) +
 
 ```
 
-> RUNX1 DE genes
+## RUNX1 DE genes
 
 ```{r, message=FALSE, warning = FALSE}
 library(tidyverse)
@@ -438,7 +403,7 @@ ggplot(x2, aes(log10(V5), log10(V3))) +
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/KOPTK1_R-On-off_rpkm.png", width = 16, height = 16, units = "cm")
 ```
 
-> NOTCH1 DE genes
+## NOTCH1 DE genes
 
 ```{r, message=FALSE, warning = FALSE}
 
@@ -490,8 +455,7 @@ ggplot(x2, aes(log10(V5), log10(V3))) +
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/KOPTK1_N-On-off_rpkm.png", width = 16, height = 16, units = "cm")
 ```
 
-
-> Western blot error bar
+## Western blot error bar
 
 ```{r, message=FALSE, warning = FALSE, eval=T}
 
@@ -551,41 +515,7 @@ ggplot(cuts, aes(variable, fit,
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/kop_ac_blot.pdf", width = 6, height = 6, units = "cm")
 ```
 
->Clustering of RPKM of T-ALL and normal bood tissue.
-
-```{r, message=FALSE, warning = FALSE, eval=T}
-library(dendextend)
-
-k = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/25T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
-primary = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_10_primary.rpkm", header = T)
-colnames(primary) = c("geneID","T-ALL.0", "T-ALL.1", "T-ALL.2", "T-ALL.3", "T-ALL.4", "T-ALL.5", "T-ALL.6", "T-ALL.7", "T-ALL.8", "T-ALL.9")
-k2 = merge(k, primary)
-k3 = k2 %>% select(-contains("CUTLL"), -contains("90.pc"))
-names(k3) = gsub(pattern = ".pc.rpkm", replacement = "", x = names(k3))
-names(k3) = gsub(pattern = "HPBALL_", replacement = " ", x = names(k3))
-names(k3) = gsub(pattern = "RPMI_", replacement = " ", x = names(k3))
-names(k3) = gsub(pattern = "KOPTK1_", replacement = " ", x = names(k3))
-
-#cluster with cell line and primary
-#k4 = k3[,2:30]
-
-#cluster without cell line
-k4 = k3[,2:20]
-cl = na.omit(k4)
-hc <- hclust(as.dist(1-cor(cl[,1:ncol(cl)], method="spearman")), method="complete")
-par(mar=c(6,3,1,1))
-#par(oma=c(10,2,0,0) )
-d <- as.dendrogram(hc)
-d <- d %>% color_branches(k=3) %>% 
-  set("branches_lwd", 3) %>% 
-  set("labels_col", c("black")) %>%
-  set("leaves_pch", 19) %>%
-  set("leaves_cex", 1) %>% 
-  set("leaves_col", "black") 
-plot(d, horiz  = F)
-```
-
-# fold enrichment
+## Fold enrichment of enriched regions
 
 ```{r, message=FALSE, warning = FALSE}
 
@@ -628,41 +558,7 @@ z = runx1_notch1.3 %>% filter(X2 == "RUNX1-On")
 z2 = runx1_notch1.3 %>% filter(X2 == "RUNX1-Off2")
 
 z.z2 = data.frame(FC = z2$FC/z$FC, Mark = z$X3, Sample = rep("RUNX1-KD2", nrow(z)))
-
-rbind(x.x2, y.y2, z.z2) %>% 
-  ggplot(aes(Sample, log2(FC))) +
-  geom_bar(stat = "identity", aes(fill = Sample)) +
-  scale_fill_brewer(palette="Set1") +
-  facet_wrap(~Mark, nrow = 1) +
-  ylab("log2(fold change \n of enrichment)") +
-  xlab("") +
-  theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(fill = NA, colour = "black", size = 1),
-        strip.text = element_text(face = "bold", size = 15),
-        strip.background =element_rect(fill="white"),
-        text = element_text(size=25, face = "bold"),
-        axis.text.x=element_blank(),
-        axis.text.y = element_text(color = "black")) +
-  theme(legend.position="bottom")
   
-#only 27ac 
-rbind(x.x2, y.y2, z.z2) %>% filter(Mark %in% c("H3K27ac", "H3K27me3")) %>% filter(Sample != "RUNX1-KD2") %>%
-  ggplot(aes(Sample, log2(FC))) +
-  geom_bar(stat = "identity", aes(fill = Sample)) +
-  scale_fill_brewer(palette="Set1") +
-  facet_wrap(~Mark, nrow = 1) +
-  ylab("log2(fold change \n of Fe)") +
-  xlab("") +
-  theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(fill = NA, colour = "black", size = 1),
-        strip.text = element_text(face = "bold", size = 15),
-        strip.background =element_rect(fill="white"),
-        text = element_text(size=20, face = "bold"),
-        #axis.text.x=element_blank(),
-        axis.text.y = element_text(color = "black"),
-        legend.position = "none")
-
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/Fe.pdf", height = 8, width = 12)
 
 #plot notch1
 notch1.2 = data.frame(str_split_fixed(notch1$sample, "_", 3), notch1)
@@ -714,8 +610,7 @@ library("ggpubr")
 ggarrange(p1, p2, ncol = 1, nrow = 2, heights =c(1, 1.15))
 ```
 
-#
->Expression of MYC in R and N cells
+## Expression of MYC in R and N cells
 
 ```{r, message=FALSE, warning = FALSE}
 
@@ -805,58 +700,8 @@ ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/
 
 ```
 
->NOTCH1 and RUNX1 mutation and their overlap
 
-```{r, message=FALSE, warning = FALSE, eval=T}
-#library(gplots)
-library(dplyr)
-library(ggplot2)
-library(reshape2)
-#T-ALL samples
-#T-ALL details mutation files
-n = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL NOTCH1 variant details Jun 15 2017.tsv", fill = T, head =T)
-r = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL RUNX1 variant details Jun 15 2017.tsv", fill = T, head =T)
-#T-ALL details mutation count files
-nc = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL NOTCH1 variant count Jun 15 2017.tsv", fill = T, head =T)
-rc = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL RUNX1 variant count Jun 15 2017.tsv", fill = T, head =T)
-
-#plot
-#dom <- data.frame(Gene = c("NOTCH1", "NOTCH1","NOTCH1", "NOTCH1", "NOTCH1", "NOTCH1", "RUNX1","RUNX1"), Position = c(1571,1622, 1674,1722, 2311,2556, 49,182))
-dom <- data.frame(Gene = c("NOTCH1", "NOTCH1", "NOTCH1", "NOTCH1", "RUNX1","RUNX1"), Position = c(1571,1722, 2311,2556, 49,182))
-
-nc2 = data.frame(nc, Gene = rep("NOTCH1", nrow(nc)))
-rc2 = data.frame(rc, Gene = rep("RUNX1", nrow(rc)))
-#plot.new()
-#pdf("~/Documents/research/tall/T-ALL_manuscript/Figures/plots_paper/N.R.mut.3.pdf", height = 4, width = 12, onefile = F)
-ggplot(rbind(nc2,rc2), aes(Position, Count, color = Type)) +
-  geom_point(aes(fill=Type), 
-       colour="black",pch=21,size = 3) +
-  #scale_color_brewer(palette="Paired") +
-  geom_vline(aes(xintercept = Position), linetype= 2, dom) +
-  facet_grid(~Gene, scales = "free_x") +
-  xlab("") +
-  ylab("Mutation count") +
-  theme(panel.grid.major.y = element_line(color = "#f0f0f0"),
-        panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(fill = NA, colour = "black", size = 1),
-        strip.text = element_text(face = "bold", size = 20),
-        strip.background =element_rect(fill="white"),
-        text = element_text(size=20, face = "bold"),
-        axis.text = element_text(color = "black"),
-        legend.position = "bottom")
-#dev.off()
-
-#overlap of tested samples
-print("Number of NOTCH1 samples (wt+mut)")
-length(unique(n$Sample.ID)) #2482 total notch samples 
-print("Number of RUNX1 samples (wt+mut)")
-length(unique(r$Sample.ID)) #559 total runx samples 
-print("Overlap of NOTCH1 and RUNX1 samples (wt+mut)")
-length(intersect(n$Sample.ID, r$Sample.ID)) #469 n and r samples overlap
-
-```
-
->GSEA leadging edge genes of NOTCH1 target genes
+## GSEA leadging edge genes of NOTCH1 target genes
 
 ```{r, message=FALSE, warning = FALSE}
 library(gdata)
@@ -946,76 +791,9 @@ t.test(fc$n.ac, fc$r.ac)
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/78_n.r.gene.27me-ac.pdf", width = 20, height = 16, units = "cm")
 ```
 
->H3K27ac and rpkm correlaion
 
-```{r, message=FALSE, warning = FALSE, eval=T}
 
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/TSS2kb_numRead.32lib")
-y = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/TSS2kb_numRead.32lib.totalReads") #edit manually
-x2 = x[,(6:ncol(x))]
-x3 = data.frame(t(t(x2)/y$V2))
-x4 = data.frame(x$V5, x3)
-colnames(x4) = c("id", as.character(y$V1))
-n.on = select(x4, contains("KOPTK1_NOTCH1-On"))
-n.off = select(x4, contains("KOPTK1_NOTCH1-Off"))
-r.on = select(x4, contains("KOPTK1_RUNX1-On"))
-r.off = select(x4, starts_with("KOPTK1_RUNX1-Off_"))
-r.off2 = select(x4, starts_with("KOPTK1_RUNX1-Off2"))
-
-k = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/25T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
-k2 = data.frame(NOTCH1.On = k$KOPTK1_NOTCH1.On.pc.rpkm, NOTCH1.Off = k$KOPTK1_NOTCH1.Off.pc.rpkm,
-                RUNX1.On = k$KOPTK1_RUNX1.On.pc.rpkm, RUNX1.Off = k$KOPTK1_RUNX1.Off.pc.rpkm, RUNX1.Off2 = k$KOPTK1_RUNX1.Off59.pc.rpkm)
-
-#n.on
-for (i in 1:6) {
-  print(colnames(n.on)[i])
-  }
-for (i in 1:6) {
-  print(cor(n.on[,i], k2$NOTCH1.On, method = "spearman"))
-  }
-
-#n.off
-for (i in 1:6) {
-  print(colnames(n.off)[i])
-  }
-for (i in 1:6) {
-  print(cor(n.off[,i], k2$NOTCH1.Off, method = "spearman"))
-  }
-
-#r.on
-for (i in 1:6) {
-  print(colnames(r.on)[i])
-  }
-for (i in 1:6) {
-  print(cor(r.on[,i], k2$RUNX1.On, method = "spearman"))
-  }
-
-#r.off
-for (i in 1:6) {
-  print(colnames(r.off)[i])
-  }
-for (i in 1:6) {
-  print(cor(r.off[,i], k2$RUNX1.Off, method = "spearman"))
-}
-
-#r.off2
-for (i in 1:6) {
-  print(colnames(r.off2)[i])
-  }
-for (i in 1:6) {
-  print(cor(r.off2[,i], k2$RUNX1.Off2, method = "spearman"))
-  }
-
-library(gdata)
-library(pheatmap)
-df = read.xls("~/Documents/research/tall/T-ALL_manuscript/Data/rpkm_TSSsignal_cor.xlsx")
-df2 = df[,2:6]
-rownames(df2) = df$Mark
-pheatmap(df2, border_color = "Black", display_numbers = T, number_color = "black", fontsize_number = 16, fontsize = 16)
-
-```
-
->GSEA leadging edge genes of cell cycle genes
+## GSEA leadging edge genes of cell cycle genes
 
 ```{r, message=FALSE, warning = FALSE}
 l2= read.xls("/Users/rashedulislam/GoogleDrive/T-ALL_manuscript/GSEA/REACTOME_CELL_CYCLE/leading_edge_analysis.xlsx")
@@ -1061,10 +839,6 @@ ap = merge(t, p, by.x = "V1", by.y = 'row.names')
 ap2 = ap[,2:7]
 rownames(ap2) = ap$V1
 #
-#plot.new()
-#pdf("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/cellcycle-heatmap.pdf", width = 12, height = 8)
-pheatmap(t(ap2), cluster_rows = F, fontsize = 14, show_colnames = T, scale = "column", border_color = NA, gaps_row = 3, color = colorRampPalette(c("blue", "white", "red"))(100), main = "Expression of 22 leading edge cell cycle genes")
-#dev.off()
 
 #add annotation for terms
 x = read.csv("~/Documents/research/tall/T-ALL_manuscript/Data/22gene_cellcyle_reactome.csv")
@@ -1131,7 +905,7 @@ ggplot(x2, aes(x = reorder(pathway, -FDR), y = -log(FDR), fill =  -log(FDR))) +
 
 ```
 
->Promoter signal for 22 cell cycle genes
+## Promoter signal for 22 cell cycle genes
 
 ```{r, message=FALSE, warning = FALSE}
 
@@ -1363,7 +1137,7 @@ ggplot(df2, aes(X2, log10(value), fill = X2)) +
 
 ```
 
->Expression of CDC25A and CHEK1 in cancer vs normal tissues.
+## Expression of CDC25A and CHEK1 in cancer vs normal tissues.
 
 ```{r, message=FALSE, warning = FALSE}
 cemt = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_CEMT54_RPKM_with_tissueName.txt", header = T)
@@ -1472,7 +1246,7 @@ ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/
 ```
 
 
->Gene expression 
+## Gene expression 
 
 ```{r, eval=T}
 
@@ -1706,9 +1480,9 @@ ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/
 
 ```
 
-> Expression of genes R, N -KD
+## Expression of genes RUNX1-KD, NOTCH1-INB
 
-```{r}
+```{r, warning=F, message=F}
 
 x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_GeneID_RPKM.txt", head =T)
 x2 = melt(x) %>% mutate(type = ifelse(grepl("NOTCH1_Off", variable), "NOTCH1-INB",
@@ -1842,14 +1616,11 @@ library(patchwork)
 
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/R+N_three_genes_v2.pdf", width = 14, height = 30, units = "cm")
 
-
 ```
 
-
+# Scatter plot for histone makrs 
 
 ```{r, message=FALSE, warning = FALSE}
-
-#
 x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/KOPTK1_H3K27ac_RUNX1-On.12lib")
 y = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/KOPTK1_histone_10lib.totalReads")
 x2 = x[,(6:15)]
@@ -2201,7 +1972,160 @@ ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/
 
 ```
 
->Corregulation of MYC, NOTCH1 and RUNX1 and CDC25A using GTEx data
+
+## Supplementary 
+
+## Clustering of RPKM of T-ALL and normal bood tissue.
+
+```{r, message=FALSE, warning = FALSE, eval=T}
+library(dendextend)
+
+k = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/25T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
+primary = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_10_primary.rpkm", header = T)
+colnames(primary) = c("geneID","T-ALL.0", "T-ALL.1", "T-ALL.2", "T-ALL.3", "T-ALL.4", "T-ALL.5", "T-ALL.6", "T-ALL.7", "T-ALL.8", "T-ALL.9")
+k2 = merge(k, primary)
+k3 = k2 %>% select(-contains("CUTLL"), -contains("90.pc"))
+names(k3) = gsub(pattern = ".pc.rpkm", replacement = "", x = names(k3))
+names(k3) = gsub(pattern = "HPBALL_", replacement = " ", x = names(k3))
+names(k3) = gsub(pattern = "RPMI_", replacement = " ", x = names(k3))
+names(k3) = gsub(pattern = "KOPTK1_", replacement = " ", x = names(k3))
+
+#cluster with cell line and primary
+#k4 = k3[,2:30]
+
+#cluster without cell line
+k4 = k3[,2:20]
+cl = na.omit(k4)
+hc <- hclust(as.dist(1-cor(cl[,1:ncol(cl)], method="spearman")), method="complete")
+par(mar=c(6,3,1,1))
+#par(oma=c(10,2,0,0) )
+d <- as.dendrogram(hc)
+d <- d %>% color_branches(k=3) %>% 
+  set("branches_lwd", 3) %>% 
+  set("labels_col", c("black")) %>%
+  set("leaves_pch", 19) %>%
+  set("leaves_cex", 1) %>% 
+  set("leaves_col", "black") 
+plot(d, horiz  = F)
+```
+
+## H3K27ac and rpkm correlaion
+
+```{r, message=FALSE, warning = FALSE, eval=T}
+
+x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/TSS2kb_numRead.32lib")
+y = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/TSS2kb_numRead.32lib.totalReads") #edit manually
+x2 = x[,(6:ncol(x))]
+x3 = data.frame(t(t(x2)/y$V2))
+x4 = data.frame(x$V5, x3)
+colnames(x4) = c("id", as.character(y$V1))
+n.on = select(x4, contains("KOPTK1_NOTCH1-On"))
+n.off = select(x4, contains("KOPTK1_NOTCH1-Off"))
+r.on = select(x4, contains("KOPTK1_RUNX1-On"))
+r.off = select(x4, starts_with("KOPTK1_RUNX1-Off_"))
+r.off2 = select(x4, starts_with("KOPTK1_RUNX1-Off2"))
+
+k = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/25T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
+k2 = data.frame(NOTCH1.On = k$KOPTK1_NOTCH1.On.pc.rpkm, NOTCH1.Off = k$KOPTK1_NOTCH1.Off.pc.rpkm,
+                RUNX1.On = k$KOPTK1_RUNX1.On.pc.rpkm, RUNX1.Off = k$KOPTK1_RUNX1.Off.pc.rpkm, RUNX1.Off2 = k$KOPTK1_RUNX1.Off59.pc.rpkm)
+
+#n.on
+for (i in 1:6) {
+  print(colnames(n.on)[i])
+  }
+for (i in 1:6) {
+  print(cor(n.on[,i], k2$NOTCH1.On, method = "spearman"))
+  }
+
+#n.off
+for (i in 1:6) {
+  print(colnames(n.off)[i])
+  }
+for (i in 1:6) {
+  print(cor(n.off[,i], k2$NOTCH1.Off, method = "spearman"))
+  }
+
+#r.on
+for (i in 1:6) {
+  print(colnames(r.on)[i])
+  }
+for (i in 1:6) {
+  print(cor(r.on[,i], k2$RUNX1.On, method = "spearman"))
+  }
+
+#r.off
+for (i in 1:6) {
+  print(colnames(r.off)[i])
+  }
+for (i in 1:6) {
+  print(cor(r.off[,i], k2$RUNX1.Off, method = "spearman"))
+}
+
+#r.off2
+for (i in 1:6) {
+  print(colnames(r.off2)[i])
+  }
+for (i in 1:6) {
+  print(cor(r.off2[,i], k2$RUNX1.Off2, method = "spearman"))
+  }
+
+library(gdata)
+library(pheatmap)
+df = read.xls("~/Documents/research/tall/T-ALL_manuscript/Data/rpkm_TSSsignal_cor.xlsx")
+df2 = df[,2:6]
+rownames(df2) = df$Mark
+pheatmap(df2, border_color = "Black", display_numbers = T, number_color = "black", fontsize_number = 16, fontsize = 16)
+
+```
+
+## NOTCH1 and RUNX1 mutation and their overlap
+
+```{r, message=FALSE, warning = FALSE, eval=T}
+#T-ALL samples
+#T-ALL details mutation files
+n = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL NOTCH1 variant details Jun 15 2017.tsv", fill = T, head =T)
+r = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL RUNX1 variant details Jun 15 2017.tsv", fill = T, head =T)
+#T-ALL details mutation count files
+nc = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL NOTCH1 variant count Jun 15 2017.tsv", fill = T, head =T)
+rc = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL RUNX1 variant count Jun 15 2017.tsv", fill = T, head =T)
+
+#plot
+#dom <- data.frame(Gene = c("NOTCH1", "NOTCH1","NOTCH1", "NOTCH1", "NOTCH1", "NOTCH1", "RUNX1","RUNX1"), Position = c(1571,1622, 1674,1722, 2311,2556, 49,182))
+dom <- data.frame(Gene = c("NOTCH1", "NOTCH1", "NOTCH1", "NOTCH1", "RUNX1","RUNX1"), Position = c(1571,1722, 2311,2556, 49,182))
+
+nc2 = data.frame(nc, Gene = rep("NOTCH1", nrow(nc)))
+rc2 = data.frame(rc, Gene = rep("RUNX1", nrow(rc)))
+#plot.new()
+#pdf("~/Documents/research/tall/T-ALL_manuscript/Figures/plots_paper/N.R.mut.3.pdf", height = 4, width = 12, onefile = F)
+ggplot(rbind(nc2,rc2), aes(Position, Count, color = Type)) +
+  geom_point(aes(fill=Type), 
+       colour="black",pch=21,size = 3) +
+  #scale_color_brewer(palette="Paired") +
+  geom_vline(aes(xintercept = Position), linetype= 2, dom) +
+  facet_grid(~Gene, scales = "free_x") +
+  xlab("") +
+  ylab("Mutation count") +
+  theme(panel.grid.major.y = element_line(color = "#f0f0f0"),
+        panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(fill = NA, colour = "black", size = 1),
+        strip.text = element_text(face = "bold", size = 20),
+        strip.background =element_rect(fill="white"),
+        text = element_text(size=20, face = "bold"),
+        axis.text = element_text(color = "black"),
+        legend.position = "bottom")
+#dev.off()
+
+#overlap of tested samples
+print("Number of NOTCH1 samples (wt+mut)")
+length(unique(n$Sample.ID)) #2482 total notch samples 
+print("Number of RUNX1 samples (wt+mut)")
+length(unique(r$Sample.ID)) #559 total runx samples 
+print("Overlap of NOTCH1 and RUNX1 samples (wt+mut)")
+length(intersect(n$Sample.ID, r$Sample.ID)) #469 n and r samples overlap
+
+```
+
+## Corregulation of MYC, NOTCH1 and RUNX1 and CDC25A using GTEx data
 
 ```{r, message=FALSE, warning = FALSE}
 

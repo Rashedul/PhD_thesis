@@ -1,18 +1,6 @@
----
-title: "T-ALL: Role of RUNX1 and NOTCH1"
-output: 
-      html_document:
-        code_folding: hide
-        keep_md: yes
-        toc: yes
-        toc_depth: 5
-        toc_float: yes
----
 
 
-
-
-###load libs
+## load libs
 
 Run this chunk before you run entire rmd file.
 
@@ -36,11 +24,10 @@ library(factoextra)
 library(matrixStats)
 ```
 
-> Number of superenhancer 
+## Number of superenhancer 
 
 
 ```r
-library(tidyverse)
 #
 df = data.frame("NOTCH1-CTL" = 612, "NOTCH1-INB" = 456, "RUNX1-CTL" = 332, "RUNX1-KD" = 180) %>% melt()
 ggplot(df, aes(variable, value)) +
@@ -50,8 +37,10 @@ ggplot(df, aes(variable, value)) +
   theme_linedraw()
 ```
 
+![](../plot/unnamed-chunk-2-1.png)<!-- -->
 
-> Differential regions for all marks
+
+## Differential regions for all marks
 
 
 ```r
@@ -237,48 +226,6 @@ n = notch1 %>%
   mutate(freq = n / sum(n)) %>%
   mutate(Cell = rep("NOTCH1-KD", 3))
 
-r %>%
-  ggplot(aes(DE, freq)) +
-  geom_bar(stat = "identity") +
-        xlab("") +
-    ylab("Fraction of peaks") +
-  facet_grid(~Mark, scales="free") +
-    theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(fill = NA, colour = "gray", size = 1),
-        strip.text = element_text( size = 10),
-        strip.background =element_rect(fill="white"),
-        text = element_text(size=10),
-        axis.text = element_text(color = "black"),
-        legend.position = "none") +
-    theme(axis.text = element_text(color = "black", angle = 90, hjust = 1))
-```
-
-![](../plot/unnamed-chunk-3-1.png)<!-- -->
-
-```r
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/Frac_ERs_RUNX1.pdf", width = 14, height = 6, units = "cm")
-
-n %>%
-  ggplot(aes(DE, freq)) +
-  geom_bar(stat = "identity") +
-        xlab("") +
-    ylab("Fraction of peaks") +
-  facet_grid(~Mark, scales="free") +
-    theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(fill = NA, colour = "gray", size = 1),
-        strip.text = element_text(face = "bold", size = 18),
-        strip.background =element_rect(fill="white"),
-        text = element_text(size=18, face = "bold"),
-        axis.text = element_text(color = "black"),
-        legend.position = "none") +
-    theme(axis.text = element_text(color = "black", angle = 90, hjust = 1))
-```
-
-![](../plot/unnamed-chunk-3-2.png)<!-- -->
-
-```r
-#number of merged peaks
-
 #
 rbind( n, r ) %>%
   ggplot(aes(DE, freq)) +
@@ -286,7 +233,7 @@ rbind( n, r ) %>%
   facet_grid(Cell~Mark, scales="free") 
 ```
 
-![](../plot/unnamed-chunk-3-3.png)<!-- -->
+![](../plot/unnamed-chunk-3-1.png)<!-- -->
 
 ```r
 ##############
@@ -353,7 +300,7 @@ rbind(dn, up, st) %>%
     theme_bw()
 ```
 
-![](../plot/unnamed-chunk-3-4.png)<!-- -->
+![](../plot/unnamed-chunk-3-2.png)<!-- -->
 
 ```r
 ##############
@@ -395,9 +342,9 @@ ggplot(bx2, aes(x = log10(Width), y = -log10(FC),colour = DE)) +
     theme(legend.position="none")
 ```
 
-![](../plot/unnamed-chunk-3-5.png)<!-- -->
+![](../plot/unnamed-chunk-3-3.png)<!-- -->
 
-> profile for de peaks
+## profile for de peaks
 
 
 ```r
@@ -460,7 +407,7 @@ k.ac3 %>%
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/RUNX1-cov.pdf", width = 6, height = 6, units = "cm")
 ```
 
-# H3K27ac peak width distribution
+## H3K27ac peak width distribution
 
 
 ```r
@@ -513,7 +460,7 @@ ggplot(aes(V13, V5)) +
 #ggsave("/Users/rashedulislam/GoogleDrive/T-ALL_manuscript/Plots/len_dist.pdf", width = 10, height = 15, units = "cm")
 ```
 
-> RUNX1 DE genes
+## RUNX1 DE genes
 
 
 ```r
@@ -578,7 +525,7 @@ ggplot(x2, aes(log10(V5), log10(V3))) +
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/KOPTK1_R-On-off_rpkm.png", width = 16, height = 16, units = "cm")
 ```
 
-> NOTCH1 DE genes
+## NOTCH1 DE genes
 
 
 ```r
@@ -634,8 +581,7 @@ ggplot(x2, aes(log10(V5), log10(V3))) +
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/KOPTK1_N-On-off_rpkm.png", width = 16, height = 16, units = "cm")
 ```
 
-
-> Western blot error bar
+## Western blot error bar
 
 
 ```r
@@ -748,44 +694,7 @@ ggplot(cuts, aes(variable, fit,
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/kop_ac_blot.pdf", width = 6, height = 6, units = "cm")
 ```
 
->Clustering of RPKM of T-ALL and normal bood tissue.
-
-
-```r
-library(dendextend)
-
-k = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/25T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
-primary = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_10_primary.rpkm", header = T)
-colnames(primary) = c("geneID","T-ALL.0", "T-ALL.1", "T-ALL.2", "T-ALL.3", "T-ALL.4", "T-ALL.5", "T-ALL.6", "T-ALL.7", "T-ALL.8", "T-ALL.9")
-k2 = merge(k, primary)
-k3 = k2 %>% select(-contains("CUTLL"), -contains("90.pc"))
-names(k3) = gsub(pattern = ".pc.rpkm", replacement = "", x = names(k3))
-names(k3) = gsub(pattern = "HPBALL_", replacement = " ", x = names(k3))
-names(k3) = gsub(pattern = "RPMI_", replacement = " ", x = names(k3))
-names(k3) = gsub(pattern = "KOPTK1_", replacement = " ", x = names(k3))
-
-#cluster with cell line and primary
-#k4 = k3[,2:30]
-
-#cluster without cell line
-k4 = k3[,2:20]
-cl = na.omit(k4)
-hc <- hclust(as.dist(1-cor(cl[,1:ncol(cl)], method="spearman")), method="complete")
-par(mar=c(6,3,1,1))
-#par(oma=c(10,2,0,0) )
-d <- as.dendrogram(hc)
-d <- d %>% color_branches(k=3) %>% 
-  set("branches_lwd", 3) %>% 
-  set("labels_col", c("black")) %>%
-  set("leaves_pch", 19) %>%
-  set("leaves_cex", 1) %>% 
-  set("leaves_col", "black") 
-plot(d, horiz  = F)
-```
-
-![](../plot/unnamed-chunk-9-1.png)<!-- -->
-
-# fold enrichment
+## Fold enrichment of enriched regions
 
 
 ```r
@@ -828,49 +737,7 @@ z = runx1_notch1.3 %>% filter(X2 == "RUNX1-On")
 z2 = runx1_notch1.3 %>% filter(X2 == "RUNX1-Off2")
 
 z.z2 = data.frame(FC = z2$FC/z$FC, Mark = z$X3, Sample = rep("RUNX1-KD2", nrow(z)))
-
-rbind(x.x2, y.y2, z.z2) %>% 
-  ggplot(aes(Sample, log2(FC))) +
-  geom_bar(stat = "identity", aes(fill = Sample)) +
-  scale_fill_brewer(palette="Set1") +
-  facet_wrap(~Mark, nrow = 1) +
-  ylab("log2(fold change \n of enrichment)") +
-  xlab("") +
-  theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(fill = NA, colour = "black", size = 1),
-        strip.text = element_text(face = "bold", size = 15),
-        strip.background =element_rect(fill="white"),
-        text = element_text(size=25, face = "bold"),
-        axis.text.x=element_blank(),
-        axis.text.y = element_text(color = "black")) +
-  theme(legend.position="bottom")
-```
-
-![](../plot/unnamed-chunk-10-1.png)<!-- -->
-
-```r
-#only 27ac 
-rbind(x.x2, y.y2, z.z2) %>% filter(Mark %in% c("H3K27ac", "H3K27me3")) %>% filter(Sample != "RUNX1-KD2") %>%
-  ggplot(aes(Sample, log2(FC))) +
-  geom_bar(stat = "identity", aes(fill = Sample)) +
-  scale_fill_brewer(palette="Set1") +
-  facet_wrap(~Mark, nrow = 1) +
-  ylab("log2(fold change \n of Fe)") +
-  xlab("") +
-  theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(fill = NA, colour = "black", size = 1),
-        strip.text = element_text(face = "bold", size = 15),
-        strip.background =element_rect(fill="white"),
-        text = element_text(size=20, face = "bold"),
-        #axis.text.x=element_blank(),
-        axis.text.y = element_text(color = "black"),
-        legend.position = "none")
-```
-
-![](../plot/unnamed-chunk-10-2.png)<!-- -->
-
-```r
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/Fe.pdf", height = 8, width = 12)
+  
 
 #plot notch1
 notch1.2 = data.frame(str_split_fixed(notch1$sample, "_", 3), notch1)
@@ -922,10 +789,9 @@ library("ggpubr")
 ggarrange(p1, p2, ncol = 1, nrow = 2, heights =c(1, 1.15))
 ```
 
-![](../plot/unnamed-chunk-10-3.png)<!-- -->
+![](../plot/unnamed-chunk-9-1.png)<!-- -->
 
-#
->Expression of MYC in R and N cells
+## Expression of MYC in R and N cells
 
 
 ```r
@@ -1012,108 +878,14 @@ library(patchwork)
 (g1 | g2 | g3)
 ```
 
-![](../plot/unnamed-chunk-11-1.png)<!-- -->
+![](../plot/unnamed-chunk-10-1.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/myc_mrna.pdf", height = 5, width = 8)
 ```
 
->NOTCH1 and RUNX1 mutation and their overlap
 
-
-```r
-#library(gplots)
-library(dplyr)
-library(ggplot2)
-library(reshape2)
-#T-ALL samples
-#T-ALL details mutation files
-n = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL NOTCH1 variant details Jun 15 2017.tsv", fill = T, head =T)
-r = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL RUNX1 variant details Jun 15 2017.tsv", fill = T, head =T)
-#T-ALL details mutation count files
-nc = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL NOTCH1 variant count Jun 15 2017.tsv", fill = T, head =T)
-rc = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL RUNX1 variant count Jun 15 2017.tsv", fill = T, head =T)
-
-#plot
-#dom <- data.frame(Gene = c("NOTCH1", "NOTCH1","NOTCH1", "NOTCH1", "NOTCH1", "NOTCH1", "RUNX1","RUNX1"), Position = c(1571,1622, 1674,1722, 2311,2556, 49,182))
-dom <- data.frame(Gene = c("NOTCH1", "NOTCH1", "NOTCH1", "NOTCH1", "RUNX1","RUNX1"), Position = c(1571,1722, 2311,2556, 49,182))
-
-nc2 = data.frame(nc, Gene = rep("NOTCH1", nrow(nc)))
-rc2 = data.frame(rc, Gene = rep("RUNX1", nrow(rc)))
-#plot.new()
-#pdf("~/Documents/research/tall/T-ALL_manuscript/Figures/plots_paper/N.R.mut.3.pdf", height = 4, width = 12, onefile = F)
-ggplot(rbind(nc2,rc2), aes(Position, Count, color = Type)) +
-  geom_point(aes(fill=Type), 
-       colour="black",pch=21,size = 3) +
-  #scale_color_brewer(palette="Paired") +
-  geom_vline(aes(xintercept = Position), linetype= 2, dom) +
-  facet_grid(~Gene, scales = "free_x") +
-  xlab("") +
-  ylab("Mutation count") +
-  theme(panel.grid.major.y = element_line(color = "#f0f0f0"),
-        panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(fill = NA, colour = "black", size = 1),
-        strip.text = element_text(face = "bold", size = 20),
-        strip.background =element_rect(fill="white"),
-        text = element_text(size=20, face = "bold"),
-        axis.text = element_text(color = "black"),
-        legend.position = "bottom")
-```
-
-![](../plot/unnamed-chunk-12-1.png)<!-- -->
-
-```r
-#dev.off()
-
-#overlap of tested samples
-print("Number of NOTCH1 samples (wt+mut)")
-```
-
-```
-## [1] "Number of NOTCH1 samples (wt+mut)"
-```
-
-```r
-length(unique(n$Sample.ID)) #2482 total notch samples 
-```
-
-```
-## [1] 2482
-```
-
-```r
-print("Number of RUNX1 samples (wt+mut)")
-```
-
-```
-## [1] "Number of RUNX1 samples (wt+mut)"
-```
-
-```r
-length(unique(r$Sample.ID)) #559 total runx samples 
-```
-
-```
-## [1] 559
-```
-
-```r
-print("Overlap of NOTCH1 and RUNX1 samples (wt+mut)")
-```
-
-```
-## [1] "Overlap of NOTCH1 and RUNX1 samples (wt+mut)"
-```
-
-```r
-length(intersect(n$Sample.ID, r$Sample.ID)) #469 n and r samples overlap
-```
-
-```
-## [1] 469
-```
-
->GSEA leadging edge genes of NOTCH1 target genes
+## GSEA leadging edge genes of NOTCH1 target genes
 
 
 ```r
@@ -1198,7 +970,7 @@ rownames(df) = x3$V7
 pheatmap(t(df), cluster_rows = F, fontsize = 10, show_colnames = T, show_rownames = T, scale = "column", border_color = NA, gaps_row = 5, color = colorRampPalette(c("blue", "white", "red"))(20))
 ```
 
-![](../plot/unnamed-chunk-13-1.png)<!-- -->
+![](../plot/unnamed-chunk-11-1.png)<!-- -->
 
 ```r
 #dev.off()
@@ -1254,7 +1026,7 @@ fc2 %>% ggplot(aes(variable, log2(value), color = mark)) +
         legend.position = "none")
 ```
 
-![](../plot/unnamed-chunk-13-2.png)<!-- -->
+![](../plot/unnamed-chunk-11-2.png)<!-- -->
 
 ```r
 t.test(fc$n.me, fc$r.me)
@@ -1296,192 +1068,9 @@ t.test(fc$n.ac, fc$r.ac)
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/78_n.r.gene.27me-ac.pdf", width = 20, height = 16, units = "cm")
 ```
 
->H3K27ac and rpkm correlaion
 
 
-```r
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/TSS2kb_numRead.32lib")
-y = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/TSS2kb_numRead.32lib.totalReads") #edit manually
-x2 = x[,(6:ncol(x))]
-x3 = data.frame(t(t(x2)/y$V2))
-x4 = data.frame(x$V5, x3)
-colnames(x4) = c("id", as.character(y$V1))
-n.on = select(x4, contains("KOPTK1_NOTCH1-On"))
-n.off = select(x4, contains("KOPTK1_NOTCH1-Off"))
-r.on = select(x4, contains("KOPTK1_RUNX1-On"))
-r.off = select(x4, starts_with("KOPTK1_RUNX1-Off_"))
-r.off2 = select(x4, starts_with("KOPTK1_RUNX1-Off2"))
-
-k = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/25T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
-k2 = data.frame(NOTCH1.On = k$KOPTK1_NOTCH1.On.pc.rpkm, NOTCH1.Off = k$KOPTK1_NOTCH1.Off.pc.rpkm,
-                RUNX1.On = k$KOPTK1_RUNX1.On.pc.rpkm, RUNX1.Off = k$KOPTK1_RUNX1.Off.pc.rpkm, RUNX1.Off2 = k$KOPTK1_RUNX1.Off59.pc.rpkm)
-
-#n.on
-for (i in 1:6) {
-  print(colnames(n.on)[i])
-  }
-```
-
-```
-## [1] "KOPTK1_NOTCH1-On_H3K27ac"
-## [1] "KOPTK1_NOTCH1-On_H3K27me3"
-## [1] "KOPTK1_NOTCH1-On_H3K4me3"
-## [1] "KOPTK1_NOTCH1-On_H3K4me1"
-## [1] "KOPTK1_NOTCH1-On_H3K36me3"
-## [1] "KOPTK1_NOTCH1-On_H3K9me3"
-```
-
-```r
-for (i in 1:6) {
-  print(cor(n.on[,i], k2$NOTCH1.On, method = "spearman"))
-  }
-```
-
-```
-## [1] 0.7407771
-## [1] -0.5796607
-## [1] 0.7661882
-## [1] 0.5597596
-## [1] 0.502378
-## [1] -0.5416989
-```
-
-```r
-#n.off
-for (i in 1:6) {
-  print(colnames(n.off)[i])
-  }
-```
-
-```
-## [1] "KOPTK1_NOTCH1-Off_H3K27ac"
-## [1] "KOPTK1_NOTCH1-Off_H3K27me3"
-## [1] "KOPTK1_NOTCH1-Off_H3K4me3"
-## [1] "KOPTK1_NOTCH1-Off_H3K4me1"
-## [1] "KOPTK1_NOTCH1-Off_H3K36me3"
-## [1] "KOPTK1_NOTCH1-Off_H3K9me3"
-```
-
-```r
-for (i in 1:6) {
-  print(cor(n.off[,i], k2$NOTCH1.Off, method = "spearman"))
-  }
-```
-
-```
-## [1] 0.7252419
-## [1] -0.3274535
-## [1] 0.7463717
-## [1] 0.496605
-## [1] 0.4176442
-## [1] -0.4918069
-```
-
-```r
-#r.on
-for (i in 1:6) {
-  print(colnames(r.on)[i])
-  }
-```
-
-```
-## [1] "KOPTK1_RUNX1-On_H3K27ac"
-## [1] "KOPTK1_RUNX1-On_H3K27me3"
-## [1] "KOPTK1_RUNX1-On_H3K4me3"
-## [1] "KOPTK1_RUNX1-On_H3K4me1"
-## [1] "KOPTK1_RUNX1-On_H3K36me3"
-## [1] "KOPTK1_RUNX1-On_H3K9me3"
-```
-
-```r
-for (i in 1:6) {
-  print(cor(r.on[,i], k2$RUNX1.On, method = "spearman"))
-  }
-```
-
-```
-## [1] 0.7429882
-## [1] -0.5783109
-## [1] 0.7594811
-## [1] 0.5382188
-## [1] 0.4596209
-## [1] -0.5401295
-```
-
-```r
-#r.off
-for (i in 1:6) {
-  print(colnames(r.off)[i])
-  }
-```
-
-```
-## [1] "KOPTK1_RUNX1-Off_H3K27ac"
-## [1] "KOPTK1_RUNX1-Off_H3K27me3"
-## [1] "KOPTK1_RUNX1-Off_H3K4me3"
-## [1] "KOPTK1_RUNX1-Off_H3K4me1"
-## [1] "KOPTK1_RUNX1-Off_H3K36me3"
-## [1] "KOPTK1_RUNX1-Off_H3K9me3"
-```
-
-```r
-for (i in 1:6) {
-  print(cor(r.off[,i], k2$RUNX1.Off, method = "spearman"))
-}
-```
-
-```
-## [1] 0.4981754
-## [1] -0.4949846
-## [1] 0.7160516
-## [1] 0.4475732
-## [1] 0.2120935
-## [1] -0.5709469
-```
-
-```r
-#r.off2
-for (i in 1:6) {
-  print(colnames(r.off2)[i])
-  }
-```
-
-```
-## [1] "KOPTK1_RUNX1-Off2_H3K27ac"
-## [1] "KOPTK1_RUNX1-Off2_H3K27me3"
-## [1] "KOPTK1_RUNX1-Off2_H3K4me3"
-## [1] "KOPTK1_RUNX1-Off2_H3K4me1"
-## [1] "KOPTK1_RUNX1-Off2_H3K36me3"
-## [1] "KOPTK1_RUNX1-Off2_H3K9me3"
-```
-
-```r
-for (i in 1:6) {
-  print(cor(r.off2[,i], k2$RUNX1.Off2, method = "spearman"))
-  }
-```
-
-```
-## [1] 0.6205113
-## [1] -0.3741188
-## [1] 0.7340065
-## [1] 0.3777179
-## [1] 0.2183877
-## [1] -0.4849971
-```
-
-```r
-library(gdata)
-library(pheatmap)
-df = read.xls("~/Documents/research/tall/T-ALL_manuscript/Data/rpkm_TSSsignal_cor.xlsx")
-df2 = df[,2:6]
-rownames(df2) = df$Mark
-pheatmap(df2, border_color = "Black", display_numbers = T, number_color = "black", fontsize_number = 16, fontsize = 16)
-```
-
-![](../plot/unnamed-chunk-14-1.png)<!-- -->
-
->GSEA leadging edge genes of cell cycle genes
+## GSEA leadging edge genes of cell cycle genes
 
 
 ```r
@@ -1522,7 +1111,7 @@ p = data.frame(cbind(xl4.on, xl4.off))
 pheatmap(t(p), cluster_rows = F, fontsize = 12, show_colnames = F, scale = "column", gaps_row = 7, border_color = NA, color = colorRampPalette(c("blue", "white", "red"))(100), main = "Expression of 132 leading edge genes")
 ```
 
-![](../plot/unnamed-chunk-15-1.png)<!-- -->
+![](../plot/unnamed-chunk-12-1.png)<!-- -->
 
 ```r
 #plot DE genes in KOPTK1-RUNX1-KD
@@ -1573,15 +1162,6 @@ ap = merge(t, p, by.x = "V1", by.y = 'row.names')
 ap2 = ap[,2:7]
 rownames(ap2) = ap$V1
 #
-#plot.new()
-#pdf("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/cellcycle-heatmap.pdf", width = 12, height = 8)
-pheatmap(t(ap2), cluster_rows = F, fontsize = 14, show_colnames = T, scale = "column", border_color = NA, gaps_row = 3, color = colorRampPalette(c("blue", "white", "red"))(100), main = "Expression of 22 leading edge cell cycle genes")
-```
-
-![](../plot/unnamed-chunk-15-2.png)<!-- -->
-
-```r
-#dev.off()
 
 #add annotation for terms
 x = read.csv("~/Documents/research/tall/T-ALL_manuscript/Data/22gene_cellcyle_reactome.csv")
@@ -1615,7 +1195,7 @@ t = data.frame(t(ap2))
 xx <- pheatmap(t, annotation = annotation2, annotation_legend = F, cluster_rows = F, fontsize = 14, show_colnames = T, scale = "column", border_color = NA, gaps_row = 3, color = colorRampPalette(c("blue", "white", "red"))(100), main = "Expression of 22 leading edge cell cycle genes")
 ```
 
-![](../plot/unnamed-chunk-15-3.png)<!-- -->
+![](../plot/unnamed-chunk-12-2.png)<!-- -->
 
 ```r
 #save heatmap
@@ -1659,9 +1239,9 @@ ggplot(x2, aes(x = reorder(pathway, -FDR), y = -log(FDR), fill =  -log(FDR))) +
   theme(legend.position="none") 
 ```
 
-![](../plot/unnamed-chunk-15-4.png)<!-- -->
+![](../plot/unnamed-chunk-12-3.png)<!-- -->
 
->Promoter signal for 22 cell cycle genes
+## Promoter signal for 22 cell cycle genes
 
 
 ```r
@@ -1785,7 +1365,7 @@ library("ggpubr")
 ggarrange(g1, g2, ncol = 2, nrow = 1)
 ```
 
-![](../plot/unnamed-chunk-16-1.png)<!-- -->
+![](../plot/unnamed-chunk-13-1.png)<!-- -->
 
 ```r
 #runx1-kd only
@@ -1909,7 +1489,7 @@ library("ggpubr")
 ggarrange(g1, g2, ncol = 2, nrow = 1)
 ```
 
-![](../plot/unnamed-chunk-16-2.png)<!-- -->
+![](../plot/unnamed-chunk-13-2.png)<!-- -->
 
 ```r
 #signal at promoter of 22 genes
@@ -2061,9 +1641,9 @@ ggplot(df2, aes(X2, log10(value), fill = X2)) +
         legend.position="none")
 ```
 
-![](../plot/unnamed-chunk-16-3.png)<!-- -->
+![](../plot/unnamed-chunk-13-3.png)<!-- -->
 
->Expression of CDC25A and CHEK1 in cancer vs normal tissues.
+## Expression of CDC25A and CHEK1 in cancer vs normal tissues.
 
 
 ```r
@@ -2147,7 +1727,7 @@ ggplot(cuts2, aes(Type, fit,
   coord_flip()
 ```
 
-![](../plot/unnamed-chunk-17-1.png)<!-- -->
+![](../plot/unnamed-chunk-14-1.png)<!-- -->
 
 ```r
 #lymphoid cells
@@ -2173,14 +1753,14 @@ ggplot(cdc25a, aes(Type, fit,
   coord_flip()
 ```
 
-![](../plot/unnamed-chunk-17-2.png)<!-- -->
+![](../plot/unnamed-chunk-14-2.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/cdc25a-exp.pdf", height = 4, width = 5)
 ```
 
 
->Gene expression 
+## Gene expression 
 
 
 ```r
@@ -2353,7 +1933,7 @@ library(patchwork)
 (g1 + g2 + g4 + g3)
 ```
 
-![](../plot/unnamed-chunk-18-1.png)<!-- -->
+![](../plot/unnamed-chunk-15-1.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/4gene-exp.pdf", height = 8, width = 12)
@@ -2392,7 +1972,7 @@ ggplot(cuts, aes(type, fit,
   ylab("MYC expression")
 ```
 
-![](../plot/unnamed-chunk-18-2.png)<!-- -->
+![](../plot/unnamed-chunk-15-2.png)<!-- -->
 
 ```r
 #FGR expression
@@ -2429,13 +2009,13 @@ ggplot(aes(type, fit,
   ylab("FGR expression")
 ```
 
-![](../plot/unnamed-chunk-18-3.png)<!-- -->
+![](../plot/unnamed-chunk-15-3.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/FGR-exp.pdf", width = 6, height = 12, units = "cm")
 ```
 
-> Expression of genes R, N -KD
+## Expression of genes RUNX1-KD, NOTCH1-INB
 
 
 ```r
@@ -2688,17 +2268,16 @@ library(patchwork)
 (g1 / g2 / g3)
 ```
 
-![](../plot/unnamed-chunk-19-1.png)<!-- -->
+![](../plot/unnamed-chunk-16-1.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/R+N_three_genes_v2.pdf", width = 14, height = 30, units = "cm")
 ```
 
-
+# Scatter plot for histone makrs 
 
 
 ```r
-#
 x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/KOPTK1_H3K27ac_RUNX1-On.12lib")
 y = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/KOPTK1_histone_10lib.totalReads")
 x2 = x[,(6:15)]
@@ -2754,7 +2333,7 @@ rbind(s,s2,s3) %>%
         axis.text = element_text(color = "black"))
 ```
 
-![](../plot/unnamed-chunk-20-1.png)<!-- -->
+![](../plot/unnamed-chunk-17-1.png)<!-- -->
 
 ```r
 rbind(s,s2) %>%
@@ -2781,7 +2360,7 @@ rbind(s,s2) %>%
         axis.text = element_text(color = "black"))
 ```
 
-![](../plot/unnamed-chunk-20-2.png)<!-- -->
+![](../plot/unnamed-chunk-17-2.png)<!-- -->
 
 ```r
 #
@@ -2831,7 +2410,7 @@ ggplot(c, aes(x = Cell, y = (count))) +
   strip.text.x = element_blank())
 ```
 
-![](../plot/unnamed-chunk-20-3.png)<!-- -->
+![](../plot/unnamed-chunk-17-3.png)<!-- -->
 
 ```r
 ####write the up and dn bed fiels
@@ -2929,7 +2508,7 @@ t %>% filter(!grepl("NOTCH1", Cell)) %>%
   theme(legend.position="none")
 ```
 
-![](../plot/unnamed-chunk-20-4.png)<!-- -->
+![](../plot/unnamed-chunk-17-4.png)<!-- -->
 
 ```r
 t2 = t %>% filter(!grepl("NOTCH1", Cell))
@@ -2999,7 +2578,7 @@ ggplot(aes(x = rank, y= (value*10e3), colour = variable)) +
     theme(legend.title = element_blank())
 ```
 
-![](../plot/unnamed-chunk-20-5.png)<!-- -->
+![](../plot/unnamed-chunk-17-5.png)<!-- -->
 
 > NOTCH1 and RUNX1 enrichment
 
@@ -3104,13 +2683,329 @@ library(patchwork)
 (p1 | p2)
 ```
 
-![](../plot/unnamed-chunk-21-1.png)<!-- -->
+![](../plot/unnamed-chunk-18-1.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/R_N_27ac-me3.pdf", width = 20, height = 14, units = "cm")
 ```
 
->Corregulation of MYC, NOTCH1 and RUNX1 and CDC25A using GTEx data
+
+## Supplementary 
+
+## Clustering of RPKM of T-ALL and normal bood tissue.
+
+
+```r
+library(dendextend)
+
+k = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/25T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
+primary = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_10_primary.rpkm", header = T)
+colnames(primary) = c("geneID","T-ALL.0", "T-ALL.1", "T-ALL.2", "T-ALL.3", "T-ALL.4", "T-ALL.5", "T-ALL.6", "T-ALL.7", "T-ALL.8", "T-ALL.9")
+k2 = merge(k, primary)
+k3 = k2 %>% select(-contains("CUTLL"), -contains("90.pc"))
+names(k3) = gsub(pattern = ".pc.rpkm", replacement = "", x = names(k3))
+names(k3) = gsub(pattern = "HPBALL_", replacement = " ", x = names(k3))
+names(k3) = gsub(pattern = "RPMI_", replacement = " ", x = names(k3))
+names(k3) = gsub(pattern = "KOPTK1_", replacement = " ", x = names(k3))
+
+#cluster with cell line and primary
+#k4 = k3[,2:30]
+
+#cluster without cell line
+k4 = k3[,2:20]
+cl = na.omit(k4)
+hc <- hclust(as.dist(1-cor(cl[,1:ncol(cl)], method="spearman")), method="complete")
+par(mar=c(6,3,1,1))
+#par(oma=c(10,2,0,0) )
+d <- as.dendrogram(hc)
+d <- d %>% color_branches(k=3) %>% 
+  set("branches_lwd", 3) %>% 
+  set("labels_col", c("black")) %>%
+  set("leaves_pch", 19) %>%
+  set("leaves_cex", 1) %>% 
+  set("leaves_col", "black") 
+plot(d, horiz  = F)
+```
+
+![](../plot/unnamed-chunk-19-1.png)<!-- -->
+
+## H3K27ac and rpkm correlaion
+
+
+```r
+x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/TSS2kb_numRead.32lib")
+y = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/TSS2kb_numRead.32lib.totalReads") #edit manually
+x2 = x[,(6:ncol(x))]
+x3 = data.frame(t(t(x2)/y$V2))
+x4 = data.frame(x$V5, x3)
+colnames(x4) = c("id", as.character(y$V1))
+n.on = select(x4, contains("KOPTK1_NOTCH1-On"))
+n.off = select(x4, contains("KOPTK1_NOTCH1-Off"))
+r.on = select(x4, contains("KOPTK1_RUNX1-On"))
+r.off = select(x4, starts_with("KOPTK1_RUNX1-Off_"))
+r.off2 = select(x4, starts_with("KOPTK1_RUNX1-Off2"))
+
+k = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/25T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
+k2 = data.frame(NOTCH1.On = k$KOPTK1_NOTCH1.On.pc.rpkm, NOTCH1.Off = k$KOPTK1_NOTCH1.Off.pc.rpkm,
+                RUNX1.On = k$KOPTK1_RUNX1.On.pc.rpkm, RUNX1.Off = k$KOPTK1_RUNX1.Off.pc.rpkm, RUNX1.Off2 = k$KOPTK1_RUNX1.Off59.pc.rpkm)
+
+#n.on
+for (i in 1:6) {
+  print(colnames(n.on)[i])
+  }
+```
+
+```
+## [1] "KOPTK1_NOTCH1-On_H3K27ac"
+## [1] "KOPTK1_NOTCH1-On_H3K27me3"
+## [1] "KOPTK1_NOTCH1-On_H3K4me3"
+## [1] "KOPTK1_NOTCH1-On_H3K4me1"
+## [1] "KOPTK1_NOTCH1-On_H3K36me3"
+## [1] "KOPTK1_NOTCH1-On_H3K9me3"
+```
+
+```r
+for (i in 1:6) {
+  print(cor(n.on[,i], k2$NOTCH1.On, method = "spearman"))
+  }
+```
+
+```
+## [1] 0.7407771
+## [1] -0.5796607
+## [1] 0.7661882
+## [1] 0.5597596
+## [1] 0.502378
+## [1] -0.5416989
+```
+
+```r
+#n.off
+for (i in 1:6) {
+  print(colnames(n.off)[i])
+  }
+```
+
+```
+## [1] "KOPTK1_NOTCH1-Off_H3K27ac"
+## [1] "KOPTK1_NOTCH1-Off_H3K27me3"
+## [1] "KOPTK1_NOTCH1-Off_H3K4me3"
+## [1] "KOPTK1_NOTCH1-Off_H3K4me1"
+## [1] "KOPTK1_NOTCH1-Off_H3K36me3"
+## [1] "KOPTK1_NOTCH1-Off_H3K9me3"
+```
+
+```r
+for (i in 1:6) {
+  print(cor(n.off[,i], k2$NOTCH1.Off, method = "spearman"))
+  }
+```
+
+```
+## [1] 0.7252419
+## [1] -0.3274535
+## [1] 0.7463717
+## [1] 0.496605
+## [1] 0.4176442
+## [1] -0.4918069
+```
+
+```r
+#r.on
+for (i in 1:6) {
+  print(colnames(r.on)[i])
+  }
+```
+
+```
+## [1] "KOPTK1_RUNX1-On_H3K27ac"
+## [1] "KOPTK1_RUNX1-On_H3K27me3"
+## [1] "KOPTK1_RUNX1-On_H3K4me3"
+## [1] "KOPTK1_RUNX1-On_H3K4me1"
+## [1] "KOPTK1_RUNX1-On_H3K36me3"
+## [1] "KOPTK1_RUNX1-On_H3K9me3"
+```
+
+```r
+for (i in 1:6) {
+  print(cor(r.on[,i], k2$RUNX1.On, method = "spearman"))
+  }
+```
+
+```
+## [1] 0.7429882
+## [1] -0.5783109
+## [1] 0.7594811
+## [1] 0.5382188
+## [1] 0.4596209
+## [1] -0.5401295
+```
+
+```r
+#r.off
+for (i in 1:6) {
+  print(colnames(r.off)[i])
+  }
+```
+
+```
+## [1] "KOPTK1_RUNX1-Off_H3K27ac"
+## [1] "KOPTK1_RUNX1-Off_H3K27me3"
+## [1] "KOPTK1_RUNX1-Off_H3K4me3"
+## [1] "KOPTK1_RUNX1-Off_H3K4me1"
+## [1] "KOPTK1_RUNX1-Off_H3K36me3"
+## [1] "KOPTK1_RUNX1-Off_H3K9me3"
+```
+
+```r
+for (i in 1:6) {
+  print(cor(r.off[,i], k2$RUNX1.Off, method = "spearman"))
+}
+```
+
+```
+## [1] 0.4981754
+## [1] -0.4949846
+## [1] 0.7160516
+## [1] 0.4475732
+## [1] 0.2120935
+## [1] -0.5709469
+```
+
+```r
+#r.off2
+for (i in 1:6) {
+  print(colnames(r.off2)[i])
+  }
+```
+
+```
+## [1] "KOPTK1_RUNX1-Off2_H3K27ac"
+## [1] "KOPTK1_RUNX1-Off2_H3K27me3"
+## [1] "KOPTK1_RUNX1-Off2_H3K4me3"
+## [1] "KOPTK1_RUNX1-Off2_H3K4me1"
+## [1] "KOPTK1_RUNX1-Off2_H3K36me3"
+## [1] "KOPTK1_RUNX1-Off2_H3K9me3"
+```
+
+```r
+for (i in 1:6) {
+  print(cor(r.off2[,i], k2$RUNX1.Off2, method = "spearman"))
+  }
+```
+
+```
+## [1] 0.6205113
+## [1] -0.3741188
+## [1] 0.7340065
+## [1] 0.3777179
+## [1] 0.2183877
+## [1] -0.4849971
+```
+
+```r
+library(gdata)
+library(pheatmap)
+df = read.xls("~/Documents/research/tall/T-ALL_manuscript/Data/rpkm_TSSsignal_cor.xlsx")
+df2 = df[,2:6]
+rownames(df2) = df$Mark
+pheatmap(df2, border_color = "Black", display_numbers = T, number_color = "black", fontsize_number = 16, fontsize = 16)
+```
+
+![](../plot/unnamed-chunk-20-1.png)<!-- -->
+
+## NOTCH1 and RUNX1 mutation and their overlap
+
+
+```r
+#T-ALL samples
+#T-ALL details mutation files
+n = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL NOTCH1 variant details Jun 15 2017.tsv", fill = T, head =T)
+r = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL RUNX1 variant details Jun 15 2017.tsv", fill = T, head =T)
+#T-ALL details mutation count files
+nc = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL NOTCH1 variant count Jun 15 2017.tsv", fill = T, head =T)
+rc = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL RUNX1 variant count Jun 15 2017.tsv", fill = T, head =T)
+
+#plot
+#dom <- data.frame(Gene = c("NOTCH1", "NOTCH1","NOTCH1", "NOTCH1", "NOTCH1", "NOTCH1", "RUNX1","RUNX1"), Position = c(1571,1622, 1674,1722, 2311,2556, 49,182))
+dom <- data.frame(Gene = c("NOTCH1", "NOTCH1", "NOTCH1", "NOTCH1", "RUNX1","RUNX1"), Position = c(1571,1722, 2311,2556, 49,182))
+
+nc2 = data.frame(nc, Gene = rep("NOTCH1", nrow(nc)))
+rc2 = data.frame(rc, Gene = rep("RUNX1", nrow(rc)))
+#plot.new()
+#pdf("~/Documents/research/tall/T-ALL_manuscript/Figures/plots_paper/N.R.mut.3.pdf", height = 4, width = 12, onefile = F)
+ggplot(rbind(nc2,rc2), aes(Position, Count, color = Type)) +
+  geom_point(aes(fill=Type), 
+       colour="black",pch=21,size = 3) +
+  #scale_color_brewer(palette="Paired") +
+  geom_vline(aes(xintercept = Position), linetype= 2, dom) +
+  facet_grid(~Gene, scales = "free_x") +
+  xlab("") +
+  ylab("Mutation count") +
+  theme(panel.grid.major.y = element_line(color = "#f0f0f0"),
+        panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(fill = NA, colour = "black", size = 1),
+        strip.text = element_text(face = "bold", size = 20),
+        strip.background =element_rect(fill="white"),
+        text = element_text(size=20, face = "bold"),
+        axis.text = element_text(color = "black"),
+        legend.position = "bottom")
+```
+
+![](../plot/unnamed-chunk-21-1.png)<!-- -->
+
+```r
+#dev.off()
+
+#overlap of tested samples
+print("Number of NOTCH1 samples (wt+mut)")
+```
+
+```
+## [1] "Number of NOTCH1 samples (wt+mut)"
+```
+
+```r
+length(unique(n$Sample.ID)) #2482 total notch samples 
+```
+
+```
+## [1] 2482
+```
+
+```r
+print("Number of RUNX1 samples (wt+mut)")
+```
+
+```
+## [1] "Number of RUNX1 samples (wt+mut)"
+```
+
+```r
+length(unique(r$Sample.ID)) #559 total runx samples 
+```
+
+```
+## [1] 559
+```
+
+```r
+print("Overlap of NOTCH1 and RUNX1 samples (wt+mut)")
+```
+
+```
+## [1] "Overlap of NOTCH1 and RUNX1 samples (wt+mut)"
+```
+
+```r
+length(intersect(n$Sample.ID, r$Sample.ID)) #469 n and r samples overlap
+```
+
+```
+## [1] 469
+```
+
+## Corregulation of MYC, NOTCH1 and RUNX1 and CDC25A using GTEx data
 
 
 ```r
