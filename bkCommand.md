@@ -37,20 +37,14 @@ java -jar -Xmx10G MarkDuplicates.jar I=file.sorted.bam O=file.sorted.dups_marked
 #### ChIP-seq data analysis
 
 ```
-# peak calling with findER2
+# peak calling with findER
 java -jar -Xmx25G /path/finder2.jar inputBam:$input.bam signalBam:$signal.bam outDir:$out acgtDir:/path/hg38/ACGT
-
-# peak calling with findER1
-java -jar -Xmx25G FindER.1.0.0b.jar -signalBam file.bam -inputBam file_inputDNA.bam -out ./ -v -FDR 0.01
 
 # peak calling with MACS2
 macs2 callpeak -B -t file.bam  -f BAM -n $line.noInput -g hs --call-summits  --outdir /path/MACS2/
 
 # RPKM normalization of bigwig files using deeptools
 bamCoverage -b file.bam -o /outpath/file.bam.bw -of bigwig -bs 50 --effectiveGenomeSize 2913022398 --normalizeUsing RPKM --extendReads --ignoreDuplicates -p max/2
-
-# HOMER motif finding
-findMotifsGenome.pl regionOfInterest.bed hg19 ./ size 200 -len 8 -p 16  
 
 # generate RPKM matrix using deeptools
 computeMatrix reference-point --referencePoint center \
