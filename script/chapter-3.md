@@ -1,16 +1,3 @@
----
-title: "ighv-status"
-author: "Rashedul"
-date: "3/23/2020"
-output: 
-  html_document:
-    code_folding: hide 
-    keep_md: yes
-    toc: yes
-    toc_depth: 5
-    toc_float: yes 
----
-
 
 
 ###load libs
