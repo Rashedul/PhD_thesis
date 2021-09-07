@@ -1,8 +1,8 @@
 comparisons/
 
-plot/
 thesis_chapter2_files/
 
 *html
+*Rmd
 
 .DS_Store
