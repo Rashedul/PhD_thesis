@@ -1,9 +1,10 @@
 comparisons/
 
 thesis_chapter2_files/
+temp/
 
 bkCommand.md
 *.html
 *.Rmd
-
+thesis_chapter2.Rmd
 .DS_Store
