@@ -11,12 +11,14 @@ output:
 
 
 
+
 ###load libs
 
 Run this chunk before you run entire rmd file.
 
 
 ```r
+setwd("/Users/rashedulislam/Documents/PhD_thesis/script/")
 getwd()
 ```
 
@@ -251,7 +253,7 @@ r %>%
     theme(axis.text = element_text(color = "black", angle = 90, hjust = 1))
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](../plot/unnamed-chunk-3-1.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/Frac_ERs_RUNX1.pdf", width = 14, height = 6, units = "cm")
@@ -272,7 +274,7 @@ n %>%
     theme(axis.text = element_text(color = "black", angle = 90, hjust = 1))
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-3-2.png)<!-- -->
+![](../plot/unnamed-chunk-3-2.png)<!-- -->
 
 ```r
 #number of merged peaks
@@ -284,7 +286,7 @@ rbind( n, r ) %>%
   facet_grid(Cell~Mark, scales="free") 
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-3-3.png)<!-- -->
+![](../plot/unnamed-chunk-3-3.png)<!-- -->
 
 ```r
 ##############
@@ -351,7 +353,7 @@ rbind(dn, up, st) %>%
     theme_bw()
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-3-4.png)<!-- -->
+![](../plot/unnamed-chunk-3-4.png)<!-- -->
 
 ```r
 ##############
@@ -393,7 +395,7 @@ ggplot(bx2, aes(x = log10(Width), y = -log10(FC),colour = DE)) +
     theme(legend.position="none")
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-3-5.png)<!-- -->
+![](../plot/unnamed-chunk-3-5.png)<!-- -->
 
 > profile for de peaks
 
@@ -450,7 +452,7 @@ k.ac3 %>%
         legend.position = "none") 
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](../plot/unnamed-chunk-4-1.png)<!-- -->
 
 ```r
 #    theme(axis.text = element_text(color = "black", angle = 00, hjust = 1))
@@ -482,7 +484,7 @@ ggplot(xy, aes(Cell, log10(V5))) +
         axis.text = element_text(color = "black"))
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](../plot/unnamed-chunk-5-1.png)<!-- -->
 
 ```r
 ggsave("/Users/rashedulislam/GoogleDrive/T-ALL_manuscript/Plots/h3k27ac_len_dist.pdf", width = 10, height = 15, units = "cm")
@@ -505,7 +507,7 @@ ggplot(aes(V13, V5)) +
         axis.text = element_text(color = "black"))
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-5-2.png)<!-- -->
+![](../plot/unnamed-chunk-5-2.png)<!-- -->
 
 ```r
 #ggsave("/Users/rashedulislam/GoogleDrive/T-ALL_manuscript/Plots/len_dist.pdf", width = 10, height = 15, units = "cm")
@@ -570,7 +572,7 @@ ggplot(x2, aes(log10(V5), log10(V3))) +
     point.padding = unit(0.3, "lines"))
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](../plot/unnamed-chunk-6-1.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/KOPTK1_R-On-off_rpkm.png", width = 16, height = 16, units = "cm")
@@ -626,7 +628,7 @@ ggplot(x2, aes(log10(V5), log10(V3))) +
     point.padding = unit(0.3, "lines"))
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](../plot/unnamed-chunk-7-1.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/KOPTK1_N-On-off_rpkm.png", width = 16, height = 16, units = "cm")
@@ -740,7 +742,7 @@ ggplot(cuts, aes(variable, fit,
   ylab("Ratio of (H3K27ac/H3)")
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](../plot/unnamed-chunk-8-1.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/kop_ac_blot.pdf", width = 6, height = 6, units = "cm")
@@ -781,7 +783,7 @@ d <- d %>% color_branches(k=3) %>%
 plot(d, horiz  = F)
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](../plot/unnamed-chunk-9-1.png)<!-- -->
 
 # fold enrichment
 
@@ -844,7 +846,7 @@ rbind(x.x2, y.y2, z.z2) %>%
   theme(legend.position="bottom")
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](../plot/unnamed-chunk-10-1.png)<!-- -->
 
 ```r
 #only 27ac 
@@ -865,7 +867,7 @@ rbind(x.x2, y.y2, z.z2) %>% filter(Mark %in% c("H3K27ac", "H3K27me3")) %>% filte
         legend.position = "none")
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-10-2.png)<!-- -->
+![](../plot/unnamed-chunk-10-2.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/Fe.pdf", height = 8, width = 12)
@@ -920,7 +922,7 @@ library("ggpubr")
 ggarrange(p1, p2, ncol = 1, nrow = 2, heights =c(1, 1.15))
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-10-3.png)<!-- -->
+![](../plot/unnamed-chunk-10-3.png)<!-- -->
 
 #
 >Expression of MYC in R and N cells
@@ -1010,7 +1012,7 @@ library(patchwork)
 (g1 | g2 | g3)
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](../plot/unnamed-chunk-11-1.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/myc_mrna.pdf", height = 5, width = 8)
@@ -1058,7 +1060,7 @@ ggplot(rbind(nc2,rc2), aes(Position, Count, color = Type)) +
         legend.position = "bottom")
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](../plot/unnamed-chunk-12-1.png)<!-- -->
 
 ```r
 #dev.off()
@@ -1196,7 +1198,7 @@ rownames(df) = x3$V7
 pheatmap(t(df), cluster_rows = F, fontsize = 10, show_colnames = T, show_rownames = T, scale = "column", border_color = NA, gaps_row = 5, color = colorRampPalette(c("blue", "white", "red"))(20))
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](../plot/unnamed-chunk-13-1.png)<!-- -->
 
 ```r
 #dev.off()
@@ -1252,7 +1254,7 @@ fc2 %>% ggplot(aes(variable, log2(value), color = mark)) +
         legend.position = "none")
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-13-2.png)<!-- -->
+![](../plot/unnamed-chunk-13-2.png)<!-- -->
 
 ```r
 t.test(fc$n.me, fc$r.me)
@@ -1477,7 +1479,7 @@ rownames(df2) = df$Mark
 pheatmap(df2, border_color = "Black", display_numbers = T, number_color = "black", fontsize_number = 16, fontsize = 16)
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+![](../plot/unnamed-chunk-14-1.png)<!-- -->
 
 >GSEA leadging edge genes of cell cycle genes
 
@@ -1520,7 +1522,7 @@ p = data.frame(cbind(xl4.on, xl4.off))
 pheatmap(t(p), cluster_rows = F, fontsize = 12, show_colnames = F, scale = "column", gaps_row = 7, border_color = NA, color = colorRampPalette(c("blue", "white", "red"))(100), main = "Expression of 132 leading edge genes")
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](../plot/unnamed-chunk-15-1.png)<!-- -->
 
 ```r
 #plot DE genes in KOPTK1-RUNX1-KD
@@ -1576,7 +1578,7 @@ rownames(ap2) = ap$V1
 pheatmap(t(ap2), cluster_rows = F, fontsize = 14, show_colnames = T, scale = "column", border_color = NA, gaps_row = 3, color = colorRampPalette(c("blue", "white", "red"))(100), main = "Expression of 22 leading edge cell cycle genes")
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-15-2.png)<!-- -->
+![](../plot/unnamed-chunk-15-2.png)<!-- -->
 
 ```r
 #dev.off()
@@ -1613,7 +1615,7 @@ t = data.frame(t(ap2))
 xx <- pheatmap(t, annotation = annotation2, annotation_legend = F, cluster_rows = F, fontsize = 14, show_colnames = T, scale = "column", border_color = NA, gaps_row = 3, color = colorRampPalette(c("blue", "white", "red"))(100), main = "Expression of 22 leading edge cell cycle genes")
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-15-3.png)<!-- -->
+![](../plot/unnamed-chunk-15-3.png)<!-- -->
 
 ```r
 #save heatmap
@@ -1657,7 +1659,7 @@ ggplot(x2, aes(x = reorder(pathway, -FDR), y = -log(FDR), fill =  -log(FDR))) +
   theme(legend.position="none") 
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-15-4.png)<!-- -->
+![](../plot/unnamed-chunk-15-4.png)<!-- -->
 
 >Promoter signal for 22 cell cycle genes
 
@@ -1783,7 +1785,7 @@ library("ggpubr")
 ggarrange(g1, g2, ncol = 2, nrow = 1)
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+![](../plot/unnamed-chunk-16-1.png)<!-- -->
 
 ```r
 #runx1-kd only
@@ -1907,7 +1909,7 @@ library("ggpubr")
 ggarrange(g1, g2, ncol = 2, nrow = 1)
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-16-2.png)<!-- -->
+![](../plot/unnamed-chunk-16-2.png)<!-- -->
 
 ```r
 #signal at promoter of 22 genes
@@ -2059,7 +2061,7 @@ ggplot(df2, aes(X2, log10(value), fill = X2)) +
         legend.position="none")
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-16-3.png)<!-- -->
+![](../plot/unnamed-chunk-16-3.png)<!-- -->
 
 >Expression of CDC25A and CHEK1 in cancer vs normal tissues.
 
@@ -2145,7 +2147,7 @@ ggplot(cuts2, aes(Type, fit,
   coord_flip()
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
+![](../plot/unnamed-chunk-17-1.png)<!-- -->
 
 ```r
 #lymphoid cells
@@ -2171,7 +2173,7 @@ ggplot(cdc25a, aes(Type, fit,
   coord_flip()
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-17-2.png)<!-- -->
+![](../plot/unnamed-chunk-17-2.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/cdc25a-exp.pdf", height = 4, width = 5)
@@ -2192,40 +2194,12 @@ x4 <- x3[grep("ENSG00000188290", x3$A.geneID.RPKM), c(1,3:25)] %>%
   select(-KOPTK1_RUNX1_Off59)
 
 p = melt(select(x4, contains("KOPTK1_NOTCH1_On")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 p2 = data.frame(p, type = rep("NOTCH1.On", nrow(p)))
 q = melt(select(x4, contains("KOPTK1_NOTCH1_Off")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 q2 = data.frame(q, type = rep("NOTCH1.Off", nrow(q)))
 r = melt(select(x4, contains("KOPTK1_RUNX1_On")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 r2 = data.frame(r, type = rep("RUNX1_On", nrow(r)))
 s = melt(select(x4, contains("KOPTK1_RUNX1_Off")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 s2 = data.frame(s, type = rep("RUNX1_Off", nrow(s)))
 
 z = rbind(p2, q2, r2, s2)
@@ -2273,40 +2247,12 @@ x4 <- x3[grep("ENSG00000135144", x3$A.geneID.RPKM), c(1,3:25)] %>%
   select(-KOPTK1_RUNX1_Off59)
 
 p = melt(select(x4, contains("KOPTK1_NOTCH1_On")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 p2 = data.frame(p, type = rep("NOTCH1.On", nrow(p)))
 q = melt(select(x4, contains("KOPTK1_NOTCH1_Off")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 q2 = data.frame(q, type = rep("NOTCH1.Off", nrow(q)))
 r = melt(select(x4, contains("KOPTK1_RUNX1_On")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 r2 = data.frame(r, type = rep("RUNX1_On", nrow(r)))
 s = melt(select(x4, contains("KOPTK1_RUNX1_Off")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 s2 = data.frame(s, type = rep("RUNX1_Off", nrow(s)))
 
 z = rbind(p2, q2, r2, s2)
@@ -2337,40 +2283,12 @@ x4 <- x3[grep("ENSG00000074181", x3$A.geneID.RPKM), c(1,3:25)] %>%
   select(-KOPTK1_RUNX1_Off59)
 
 p = melt(select(x4, contains("KOPTK1_NOTCH1_On")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 p2 = data.frame(p, type = rep("NOTCH1.On", nrow(p)))
 q = melt(select(x4, contains("KOPTK1_NOTCH1_Off")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 q2 = data.frame(q, type = rep("NOTCH1.Off", nrow(q)))
 r = melt(select(x4, contains("KOPTK1_RUNX1_On")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 r2 = data.frame(r, type = rep("RUNX1_On", nrow(r)))
 s = melt(select(x4, contains("KOPTK1_RUNX1_Off")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 s2 = data.frame(s, type = rep("RUNX1_Off", nrow(s)))
 
 z = rbind(p2, q2, r2, s2)
@@ -2398,40 +2316,12 @@ x4 <- x3[grep("ENSG00000111344", x3$A.geneID.RPKM), c(1,3:25)] %>%
   select(-KOPTK1_RUNX1_Off59)
 
 p = melt(select(x4, contains("KOPTK1_NOTCH1_On")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 p2 = data.frame(p, type = rep("NOTCH1.On", nrow(p)))
 q = melt(select(x4, contains("KOPTK1_NOTCH1_Off")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 q2 = data.frame(q, type = rep("NOTCH1.Off", nrow(q)))
 r = melt(select(x4, contains("KOPTK1_RUNX1_On")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 r2 = data.frame(r, type = rep("RUNX1_On", nrow(r)))
 s = melt(select(x4, contains("KOPTK1_RUNX1_Off")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 s2 = data.frame(s, type = rep("RUNX1_Off", nrow(s)))
 
 z = rbind(p2, q2, r2, s2)
@@ -2463,7 +2353,7 @@ library(patchwork)
 (g1 + g2 + g4 + g3)
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+![](../plot/unnamed-chunk-18-1.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/4gene-exp.pdf", height = 8, width = 12)
@@ -2473,40 +2363,12 @@ ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/
 x4 <- x3[grep("ENSG00000136997", x3$A.geneID.RPKM), c(1,3:25)] 
 
 p = melt(select(x4, contains("KOPTK1_NOTCH1_On")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 p2 = data.frame(p, type = rep("NOTCH1.On", nrow(p)))
 q = melt(select(x4, contains("KOPTK1_NOTCH1_Off")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 q2 = data.frame(q, type = rep("NOTCH1.Off", nrow(q)))
 r = melt(select(x4, contains("KOPTK1_RUNX1_On")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 r2 = data.frame(r, type = rep("RUNX1_On", nrow(r)))
 s = melt(select(x4, contains("KOPTK1_RUNX1_Off")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 s2 = data.frame(s, type = rep("RUNX1_Off", nrow(s)))
 
 z = rbind(p2, q2, r2, s2) %>% filter(variable != "KOPTK1_RUNX1_Off59")
@@ -2530,47 +2392,19 @@ ggplot(cuts, aes(type, fit,
   ylab("MYC expression")
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-18-2.png)<!-- -->
+![](../plot/unnamed-chunk-18-2.png)<!-- -->
 
 ```r
 #FGR expression
 x4 <- x3[grep("ENSG00000000938", x3$A.geneID.RPKM), c(1,3:25)] 
 
 p = melt(select(x4, contains("KOPTK1_NOTCH1_On")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 p2 = data.frame(p, type = rep("NOTCH1.On", nrow(p)))
 q = melt(select(x4, contains("KOPTK1_NOTCH1_Off")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 q2 = data.frame(q, type = rep("NOTCH1.Off", nrow(q)))
 r = melt(select(x4, contains("KOPTK1_RUNX1_On")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 r2 = data.frame(r, type = rep("RUNX1_On", nrow(r)))
 s = melt(select(x4, contains("KOPTK1_RUNX1_Off")))
-```
-
-```
-## No id variables; using all as measure variables
-```
-
-```r
 s2 = data.frame(s, type = rep("RUNX1_Off", nrow(s)))
 
 z = rbind(p2, q2, r2, s2) %>% filter(variable != "KOPTK1_RUNX1_Off59")
@@ -2595,7 +2429,7 @@ ggplot(aes(type, fit,
   ylab("FGR expression")
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-18-3.png)<!-- -->
+![](../plot/unnamed-chunk-18-3.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/FGR-exp.pdf", width = 6, height = 12, units = "cm")
@@ -2611,13 +2445,7 @@ x2 = melt(x) %>% mutate(type = ifelse(grepl("NOTCH1_Off", variable), "NOTCH1-INB
                                ifelse(grepl("RUNX1_On", variable), "RUNX1-CTL", "RUNX1-KD")))) %>%
   filter(grepl("KOP", variable)) %>%
   filter(!grepl("CUT|Off59", variable))
-```
 
-```
-## Using A.geneID.RPKM as id variables
-```
-
-```r
 unique(x2$variable)
 ```
 
@@ -2860,7 +2688,7 @@ library(patchwork)
 (g1 / g2 / g3)
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
+![](../plot/unnamed-chunk-19-1.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/R+N_three_genes_v2.pdf", width = 14, height = 30, units = "cm")
@@ -2926,7 +2754,7 @@ rbind(s,s2,s3) %>%
         axis.text = element_text(color = "black"))
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
+![](../plot/unnamed-chunk-20-1.png)<!-- -->
 
 ```r
 rbind(s,s2) %>%
@@ -2953,7 +2781,7 @@ rbind(s,s2) %>%
         axis.text = element_text(color = "black"))
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-20-2.png)<!-- -->
+![](../plot/unnamed-chunk-20-2.png)<!-- -->
 
 ```r
 #
@@ -3003,7 +2831,7 @@ ggplot(c, aes(x = Cell, y = (count))) +
   strip.text.x = element_blank())
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-20-3.png)<!-- -->
+![](../plot/unnamed-chunk-20-3.png)<!-- -->
 
 ```r
 ####write the up and dn bed fiels
@@ -3101,7 +2929,7 @@ t %>% filter(!grepl("NOTCH1", Cell)) %>%
   theme(legend.position="none")
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-20-4.png)<!-- -->
+![](../plot/unnamed-chunk-20-4.png)<!-- -->
 
 ```r
 t2 = t %>% filter(!grepl("NOTCH1", Cell))
@@ -3171,7 +2999,7 @@ ggplot(aes(x = rank, y= (value*10e3), colour = variable)) +
     theme(legend.title = element_blank())
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-20-5.png)<!-- -->
+![](../plot/unnamed-chunk-20-5.png)<!-- -->
 
 > NOTCH1 and RUNX1 enrichment
 
@@ -3276,20 +3104,10 @@ library(patchwork)
 (p1 | p2)
 ```
 
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-```
-
-![](thesis_chapter2_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
+![](../plot/unnamed-chunk-21-1.png)<!-- -->
 
 ```r
 ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/R_N_27ac-me3.pdf", width = 20, height = 14, units = "cm")
-```
-
-```
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
-## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
 >Corregulation of MYC, NOTCH1 and RUNX1 and CDC25A using GTEx data
@@ -3339,7 +3157,7 @@ library(gridExtra)
 grid.arrange(p1, p2, p3, nrow = 1)
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+![](../plot/unnamed-chunk-22-1.png)<!-- -->
 
 ```r
 #correlation
@@ -3394,7 +3212,7 @@ am %>%
    theme(axis.text = element_text(color = "black"))
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-22-2.png)<!-- -->
+![](../plot/unnamed-chunk-22-2.png)<!-- -->
 
 ```r
 #cdc25A vs runx1
@@ -3447,4 +3265,4 @@ ggplot(a4, aes(log10(RUNX1), log10(CDC25A))) +
         axis.text.x = element_text(color = "black"))
 ```
 
-![](thesis_chapter2_files/figure-html/unnamed-chunk-22-3.png)<!-- -->
+![](../plot/unnamed-chunk-22-3.png)<!-- -->
