@@ -1,41 +1,4 @@
----
-title: "chapter-3cll"
-author: "Rashedul"
-date: "9/17/2020"
-output: 
-  html_document: 
-    code_folding: hide
-    keep_md: yes
-    toc: yes
-    toc_depth: 5
-    toc_float: yes
----
 
-
-
-###load libs
-
-Run this chunk before you run entire rmd file.
-
-
-```r
-setwd("~/Documents/bcell_cll/script/")
-getwd()
-```
-
-```
-## [1] "/Users/rashedulislam/Documents/bcell_cll/script"
-```
-
-```r
-library(gdata)
-library(tidyverse)
-library(pheatmap)
-library(ggrepel)
-library(reshape2)
-library(factoextra)
-library(matrixStats)
-```
 
 ## PCA
 
@@ -1080,64 +1043,8 @@ x %>% filter(Hyper_FDR_QVal <= 0.01) %>%
 ggsave("../plot/H3K4me1_CLL_GREAT.pdf", width = 20, height = 20, units = "cm")
 ```
 
-# expression of lef1 targets
 
-
-```r
-e = read.table("../data/table_EGA_CEMT.txt", head = T)
-
-#lef target
-#lef = read_tsv("../data/cll_manuscript/genebody_cll_UPgenes.txt", col_names = F)
-lef = read_tsv("../data/cll_manuscript/TSS5kb_cll_UPgenes.txt", col_names = F)
-#lef = read_tsv("../data/cll_manuscript/TSS5kb_genebody_cll_UPgenes_v2.txt", col_names = F)
-
-colnames(lef) = "ENSG"
-e2 = left_join(lef, e) %>% select(starts_with("CLL")) %>% 
-  melt() %>%
-  mutate(Type = "lef-target")
-
-#non-lef target
-nlef = read.table("../data/RNA-seq/DESeq2_uCLL_mCLL_Bcells/Bcell_vs_CLL_DN.txt.genebody.pc")
-nlef = data.frame(ENSG = unique(nlef$V7)) 
-nlef = anti_join(nlef, lef)
-
-e3 = left_join(nlef, e) %>% select(starts_with("CLL")) %>% 
-  melt() %>%
-  mutate(Type = "non-lef")
- 
-rbind(e2, e3) %>%
-  ggplot(aes(Type, log10(value+0.001))) +
-  geom_boxplot(outlier.shape = NA)  +
-  theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(fill = NA, colour = "gray", size = 1),
-        strip.background =element_rect(fill="white"),
-        axis.text = element_text(color = "black"),
-        legend.position = "bottom")
-```
-
-![](../plot/unnamed-chunk-3-1.png)<!-- -->
-
-```r
-ggsave(filename=paste("../plot/CLL_manuscript/lef_target_exp.pdf"), width = 12, height = 16, units = "cm", device = 'pdf')
-
-t.test(e2$value, e3$value)
-```
-
-```
-## 
-## 	Welch Two Sample t-test
-## 
-## data:  e2$value and e3$value
-## t = 12.876, df = 10113, p-value < 2.2e-16
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  24.92220 33.87263
-## sample estimates:
-## mean of x mean of y 
-##  52.19060  22.79318
-```
-
-# H3k27ac heatmap 
+## H3k27ac heatmap 
 
 
 ```r
