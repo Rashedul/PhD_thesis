@@ -1014,17 +1014,6 @@ library(forcats)
 x = read_tsv("../data/de_chipseq/greatExportAll_H3K4me1_CLL.tsv")
 ```
 
-```
-## Warning: 20 parsing failures.
-## row col   expected     actual                                                file
-##   1  -- 13 columns 14 columns '../data/de_chipseq/greatExportAll_H3K4me1_CLL.tsv'
-##   2  -- 13 columns 14 columns '../data/de_chipseq/greatExportAll_H3K4me1_CLL.tsv'
-##   3  -- 13 columns 14 columns '../data/de_chipseq/greatExportAll_H3K4me1_CLL.tsv'
-##   4  -- 13 columns 14 columns '../data/de_chipseq/greatExportAll_H3K4me1_CLL.tsv'
-##   5  -- 13 columns 14 columns '../data/de_chipseq/greatExportAll_H3K4me1_CLL.tsv'
-## ... ... .......... .......... ...................................................
-## See problems(...) for more details.
-```
 
 ```r
 x %>% filter(Hyper_FDR_QVal <= 0.01) %>%
