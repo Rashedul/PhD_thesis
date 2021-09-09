@@ -12,7 +12,7 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 - [data analysis and visualization](https://github.com/Rashedul/PhD_thesis/blob/main/script/chapter-3.md)
 
 #### Chapter 4: Aberrant chromatin landscape in chronic lymphocytic leukemia
-- [data analysis and visualization](https://github.com/Rashedul/PhD_thesis/blob/main/script/thesis_chapter3.md)
+- [data analysis and visualization](https://github.com/Rashedul/PhD_thesis/blob/main/script/thesis_chapter4.md)
 
 #### Chapter 5: Conclusion 
 
