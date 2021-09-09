@@ -15,3 +15,6 @@ reshape2
 factoextra
 matrixStats
 patchwork
+survival
+ggpubr
+survminer
