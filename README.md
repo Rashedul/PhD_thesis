@@ -12,11 +12,11 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 - [data analysis and visualization](https://github.com/Rashedul/PhD_thesis/blob/main/script/chapter-3.md)
 
 #### Chapter 4: Aberrant chromatin landscape in chronic lymphocytic leukemia
-- [data analysis and visualization](https://github.com/Rashedul/PhD_thesis/blob/main/script/chapter-3.md)
+- [data analysis and visualization](https://github.com/Rashedul/PhD_thesis/blob/main/script/thesis_chapter3.md)
 
 #### Chapter 5: Conclusion 
 
-#### Commands and parameters for bioinformatic tools](https://github.com/Rashedul/PhD_thesis/blob/main/script/Command.md)
+#### [Commands and parameters for bioinformatic tools](https://github.com/Rashedul/PhD_thesis/blob/main/script/Command.md)
 
 ## Data
 #### Chapter 2: 
@@ -35,7 +35,7 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 
 ## Publications 
 
-- **Rashedul Islam**, Misha Bilenky, Andrew P. Weng, Joseph M. Connors and Martin Hirst. CRIS: Complete Reconstruction of Immunoglobulin V-D-J Sequences from RNA-seq data. In press, *Bioinformatics Advances*.
+- **Rashedul Islam**, Misha Bilenky, Andrew P. Weng, Joseph M. Connors and Martin Hirst. CRIS: Complete Reconstruction of Immunoglobulin V-D-J Sequences from RNA-seq data. In press, *Bioinformatics Advances*. 2021.
 
 - Catherine E. Jenkins, Samuel Gusscott, Rachel J. Wong, Olena O. Shevchuk, Gurneet Rana, Vincenzo Giambra, Kateryna Tyshchenko, **Rashedul Islam**, Martin Hirst, Andrew P. Weng. [RUNX1 promotes cell growth in human T-cell acute lymphoblastic leukemia by transcriptional regulation of key target genes](https://pubmed.ncbi.nlm.nih.gov/29733873/). *Experimental Hematology*. 2018 Aug; 64:84-96. 
 

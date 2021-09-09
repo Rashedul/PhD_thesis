@@ -1,29 +1,4 @@
 
-
-## load libs
-
-Run this chunk before you run entire rmd file.
-
-
-```r
-setwd("/Users/rashedulislam/Documents/PhD_thesis/script/")
-getwd()
-```
-
-```
-## [1] "/Users/rashedulislam/Documents/PhD_thesis/script"
-```
-
-```r
-library(gdata)
-library(tidyverse)
-library(pheatmap)
-library(ggrepel)
-library(reshape2)
-library(factoextra)
-library(matrixStats)
-```
-
 ## Number of superenhancer 
 
 
@@ -45,27 +20,27 @@ ggplot(df, aes(variable, value)) +
 
 ```r
 #ac
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K27ac.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K27ac.numReads")
 h3k27ac = tibble(Width = x$V3-x$V2,  FC = (x$V4/61148753)/(x$V5/68715022), Mark = "H3K27ac", Cell = "RUNX1-KD") %>%
     filter(Width >= 400)
 
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K4me1.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K4me1.numReads")
 h3k4me1 = tibble(Width = x$V3-x$V2,  FC = (x$V4/45490827)/(x$V5/56524982), Mark = "H3K4me1", Cell = "RUNX1-KD") %>%
     filter(Width >= 400)
 
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K4me3.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K4me3.numReads")
 h3k4me3 = tibble(Width = x$V3-x$V2,  FC = (x$V4/32663162)/(x$V5/35120313), Mark = "H3K4me3", Cell = "RUNX1-KD") %>%
     filter(Width >= 400)
 
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K27me3.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K27me3.numReads")
 h3k27me3 = tibble(Width = x$V3-x$V2,  FC = (x$V4/61249493)/(x$V5/87788899), Mark = "H3K27me3", Cell = "RUNX1-KD") %>%
     filter(Width >= 400)
 
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K36me3.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K36me3.numReads")
 h3k36me3 = tibble(Width = x$V3-x$V2,  FC = (x$V4/60987506)/(x$V5/42573520), Mark = "H3K36me3", Cell = "RUNX1-KD") %>%
     filter(Width >= 400)
 
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K9me3.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K9me3.numReads")
 h3k9me3 = tibble(Width = x$V3-x$V2,  FC = (x$V4/51937264)/(x$V5/58605730), Mark = "H3K9me3", Cell = "RUNX1-KD") %>%
     filter(Width >= 400)
 
@@ -76,27 +51,27 @@ runx1$DE = factor(runx1$DE, levels = c("Loss", "Stable", "Gain"))
 runx1$Mark = factor(runx1$Mark, levels = c("H3K27ac", "H3K4me1", "H3K4me3" ,"H3K36me3", "H3K27me3", "H3K9me3"))
 
 #notch1
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K27ac.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K27ac.numReads")
 h3k27ac = tibble(Width = x$V3-x$V2,  FC = (x$V4/48017639)/(x$V5/59238945), Mark = "H3K27ac", Cell = "NOTCH1-KD") %>%
     filter(Width >= 400)
 
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K4me1.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K4me1.numReads")
 h3k4me1 = tibble(Width = x$V3-x$V2,  FC = (x$V4/57236029)/(x$V5/62007100), Mark = "H3K4me1", Cell = "NOTCH1-KD") %>%
     filter(Width >= 400)
 
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K4me3.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K4me3.numReads")
 h3k4me3 = tibble(Width = x$V3-x$V2,  FC = (x$V4/45935803)/(x$V5/52821680), Mark = "H3K4me3", Cell = "NOTCH1-KD") %>%
     filter(Width >= 400)
 
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K27me3.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K27me3.numReads")
 h3k27me3 = tibble(Width = x$V3-x$V2,  FC = (x$V4/47291388)/(x$V5/29095309), Mark = "H3K27me3", Cell = "NOTCH1-KD") %>%
     filter(Width >= 400)
 
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K36me3.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K36me3.numReads")
 h3k36me3 = tibble(Width = x$V3-x$V2,  FC = (x$V4/54316676)/(x$V5/42176769), Mark = "H3K36me3", Cell = "NOTCH1-KD") %>%
     filter(Width >= 400)
 
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K9me3.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K9me3.numReads")
 h3k9me3 = tibble(Width = x$V3-x$V2,  FC = (x$V4/57270772)/(x$V5/52553902), Mark = "H3K9me3", Cell = "NOTCH1-KD") %>%
     filter(Width >= 400)
 
@@ -239,43 +214,43 @@ rbind( n, r ) %>%
 ##############
 ####write DE bed files
 #sh58
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K27ac.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_RUNX1-On-Off_H3K27ac.numReads")
 h3k27ac = tibble(x, Width = x$V3-x$V2,  FC = (x$V4/61148753)/(x$V5/68715022)) %>%
     filter(Width >= 400)
 dn = h3k27ac %>% filter(FC >= 2)
 up = h3k27ac %>% filter(FC <= .5)
 st = h3k27ac %>% filter(FC >= .5 & FC <=2) 
 
-write.table(dn, "~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/loss_h3k27ac.bed", quote = F, col.names = F, row.names = F)
-write.table(up, "~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/gain_h3k27ac.bed", quote = F, col.names = F, row.names = F)
-write.table(st, "~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/stable_h3k27ac.bed", quote = F, col.names = F, row.names = F)
+write.table(dn, "../Data/Scatter_DE/loss_h3k27ac.bed", quote = F, col.names = F, row.names = F)
+write.table(up, "../Data/Scatter_DE/gain_h3k27ac.bed", quote = F, col.names = F, row.names = F)
+write.table(st, "../Data/Scatter_DE/stable_h3k27ac.bed", quote = F, col.names = F, row.names = F)
 
 #sh59
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_RUNX1-Off2_H3K27ac_merged_H3K27ac.numreads")
+x = read.table("../Data/Scatter_DE/KOPTK1_RUNX1-Off2_H3K27ac_merged_H3K27ac.numreads")
 h3k27ac = tibble(x, Width = x$V3-x$V2,  FC = (x$V4/61148753)/(x$V5/61815667)) %>%
     filter(Width >= 400)
 dn = h3k27ac %>% filter(FC >= 2)
 up = h3k27ac %>% filter(FC <= .5)
 st = h3k27ac %>% filter(FC >= .5 & FC <=2) 
 
-write.table(dn, "~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/shRUNX1-59_loss_h3k27ac.bed", quote = F, col.names = F, row.names = F)
-write.table(up, "~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/shRUNX1-59_gain_h3k27ac.bed", quote = F, col.names = F, row.names = F)
-write.table(st, "~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/shRUNX1-59_stable_h3k27ac.bed", quote = F, col.names = F, row.names = F)
+write.table(dn, "../Data/Scatter_DE/shRUNX1-59_loss_h3k27ac.bed", quote = F, col.names = F, row.names = F)
+write.table(up, "../Data/Scatter_DE/shRUNX1-59_gain_h3k27ac.bed", quote = F, col.names = F, row.names = F)
+write.table(st, "../Data/Scatter_DE/shRUNX1-59_stable_h3k27ac.bed", quote = F, col.names = F, row.names = F)
 
 #cutll1
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/CUTLL1_RUNX1-On-Off_H3K27ac.numreads")
+x = read.table("../Data/Scatter_DE/CUTLL1_RUNX1-On-Off_H3K27ac.numreads")
 h3k27ac = tibble(x, Width = x$V3-x$V2,  FC = (x$V4/55290155)/(x$V5/49955013)) %>%
     filter(Width >= 400)
 dn = h3k27ac %>% filter(FC >= 2)
 up = h3k27ac %>% filter(FC <= .5)
 st = h3k27ac %>% filter(FC >= .5 & FC <=2) 
 
-write.table(dn, "~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/cutll1_loss_h3k27ac.bed", quote = F, col.names = F, row.names = F)
-write.table(up, "~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/cutll1_gain_h3k27ac.bed", quote = F, col.names = F, row.names = F)
-write.table(st, "~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/cutll1_stable_h3k27ac.bed", quote = F, col.names = F, row.names = F)
+write.table(dn, "../Data/Scatter_DE/cutll1_loss_h3k27ac.bed", quote = F, col.names = F, row.names = F)
+write.table(up, "../Data/Scatter_DE/cutll1_gain_h3k27ac.bed", quote = F, col.names = F, row.names = F)
+write.table(st, "../Data/Scatter_DE/cutll1_stable_h3k27ac.bed", quote = F, col.names = F, row.names = F)
 
 #notch1-inb h3k27me3
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K27me3.numReads")
+x = read.table("../Data/Scatter_DE/KOPTK1_NOTCH1-On-Off_H3K27me3.numReads")
 h3k27me3 = tibble(x, Width = x$V3-x$V2,  FC = (x$V4/47291388)/(x$V5/29095309)) %>%
     filter(Width >= 400)
 
@@ -283,9 +258,9 @@ dn = h3k27me3 %>% filter(FC >= 2)
 up = h3k27me3 %>% filter(FC <= .5)
 st = h3k27me3 %>% filter(FC >= .5 & FC <=2) 
 
-write.table(dn, "~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/koptk1_notch1-inb_loss_h3k27me3.bed", quote = F, col.names = F, row.names = F)
-write.table(up, "~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/koptk1_notch1-inb_gain_h3k27me3.bed", quote = F, col.names = F, row.names = F)
-write.table(st, "~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/koptk1_notch1-inb_stable_h3k27me3.bed", quote = F, col.names = F, row.names = F)
+write.table(dn, "../Data/Scatter_DE/koptk1_notch1-inb_loss_h3k27me3.bed", quote = F, col.names = F, row.names = F)
+write.table(up, "../Data/Scatter_DE/koptk1_notch1-inb_gain_h3k27me3.bed", quote = F, col.names = F, row.names = F)
+write.table(st, "../Data/Scatter_DE/koptk1_notch1-inb_stable_h3k27me3.bed", quote = F, col.names = F, row.names = F)
 
 #
 dn = h3k27me3 %>% filter(FC >= 2) %>% mutate(DE = rep("Loss", 78397)) %>% select(Width, DE)
@@ -306,12 +281,12 @@ rbind(dn, up, st) %>%
 ##############
 #scatter sh59 and cutll1
 #sh59
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/CUTLL1_RUNX1-On-Off_H3K27ac.numreads")
+x = read.table("../Data/Scatter_DE/CUTLL1_RUNX1-On-Off_H3K27ac.numreads")
 x2 = tibble(Width = x$V3-x$V2,  FC = (x$V4/61148753)/(x$V5/61815667), Mark = "H3K27ac", Cell = "KOPTK1 (shRUNX1-59)") %>%
     filter(Width >= 400)
 
 #cutll1
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/CUTLL1_RUNX1-On-Off_H3K27ac.numreads")
+x = read.table("../Data/Scatter_DE/CUTLL1_RUNX1-On-Off_H3K27ac.numreads")
 y2 = tibble(Width = x$V3-x$V2,  FC = (x$V4/55290155)/(x$V5/49955013), Mark = "H3K27ac", Cell = "CUTLL1 (shRUNX1-90)") %>%
     filter(Width >= 400)
 
@@ -348,7 +323,7 @@ ggplot(bx2, aes(x = log10(Width), y = -log10(FC),colour = DE)) +
 
 
 ```r
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/Scatter_DE/DE_h3k27ac.profile.colMean.all.55_lib", head = T)[1:500,]
+x = read.table("../Data/Scatter_DE/DE_h3k27ac.profile.colMean.all.55_lib", head = T)[1:500,]
 colnames(x) = c("Gain", "Loss", "Stable")
 
 ks.test(x$Stable, x$Gain)$p.value
@@ -404,16 +379,16 @@ k.ac3 %>%
 ```r
 #    theme(axis.text = element_text(color = "black", angle = 00, hjust = 1))
 
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/RUNX1-cov.pdf", width = 6, height = 6, units = "cm")
+ggsave("../Paper_submission/Illustrator/Plots/RUNX1-cov.pdf", width = 6, height = 6, units = "cm")
 ```
 
 ## H3K27ac peak width distribution
 
 
 ```r
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/KOPTK1_RUNX1-On_H3K27ac_peakCenter_tss_dist.bed")[,c(5, 13)]
+x = read.table("../Data/KOPTK1_RUNX1-On_H3K27ac_peakCenter_tss_dist.bed")[,c(5, 13)]
 x2 = data.frame(x, Cell = rep("RUNX1-CTL", nrow(x)))
-y = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/KOPTK1_RUNX1-Off_H3K27ac_peakCenter_tss_dist.bed")[,c(5, 13)]
+y = read.table("../Data/KOPTK1_RUNX1-Off_H3K27ac_peakCenter_tss_dist.bed")[,c(5, 13)]
 y2 = data.frame(y, Cell = rep("RUNX1-KD", nrow(y)))
 
 xy = rbind(x2,y2)
@@ -467,7 +442,7 @@ ggplot(aes(V13, V5)) +
 library(tidyverse)
 library(ggrepel)
 
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_RUNX1-On-Off/RUNX1-Off_RUNX1-On.RPKM.corrected")
+x = read.table("../Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_RUNX1-On-Off/RUNX1-Off_RUNX1-On.RPKM.corrected")
 
 # MYC, HES4, NOTCH3,  DTX1, IL4, CDC25A, FGR, IGF1R, NRAS, RUNX1; not added: egr1/2, 
 
@@ -487,9 +462,9 @@ x2 = x %>% mutate(gene = ifelse(V1 == "ENSG00000136997", "MYC",
 
 #need to add DE color by DN/UP file ids. V9 is not FDR
 
-UP = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_RUNX1-On-Off/UP.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10")[,1]
+UP = read.table("../Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_RUNX1-On-Off/UP.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10")[,1]
 
-DN = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_RUNX1-On-Off/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10")[,1]
+DN = read.table("../Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_RUNX1-On-Off/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10")[,1]
 
 
 #
@@ -522,14 +497,14 @@ ggplot(x2, aes(log10(V5), log10(V3))) +
 ![](../plot/unnamed-chunk-6-1.png)<!-- -->
 
 ```r
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/KOPTK1_R-On-off_rpkm.png", width = 16, height = 16, units = "cm")
+ggsave("../Paper_submission/Illustrator/Plots/KOPTK1_R-On-off_rpkm.png", width = 16, height = 16, units = "cm")
 ```
 
 ## NOTCH1 DE genes
 
 
 ```r
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_NOTCH1-On-Off/NOTCH1-Off_NOTCH1-On.RPKM.corrected")
+x = read.table("../Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_NOTCH1-On-Off/NOTCH1-Off_NOTCH1-On.RPKM.corrected")
 
 x2 = x %>% mutate(gene = ifelse(V1 == "ENSG00000136997", "MYC",
                                 ifelse(V1 == "ENSG00000188290", "HES4",
@@ -543,9 +518,9 @@ x2 = x %>% mutate(gene = ifelse(V1 == "ENSG00000136997", "MYC",
 
 #need to add DE color by DN/UP file ids. V9 is not FDR
 
-UP = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_NOTCH1-On-Off/UP.NOTCH1-Off_NOTCH1-On.FDR_0.05.rmin_0.005.Nmin_10")[,1]
+UP = read.table("../Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_NOTCH1-On-Off/UP.NOTCH1-Off_NOTCH1-On.FDR_0.05.rmin_0.005.Nmin_10")[,1]
 
-DN = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_NOTCH1-On-Off/DN.NOTCH1-Off_NOTCH1-On.FDR_0.05.rmin_0.005.Nmin_10")[,1]
+DN = read.table("../Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_NOTCH1-On-Off/DN.NOTCH1-Off_NOTCH1-On.FDR_0.05.rmin_0.005.Nmin_10")[,1]
 
 
 #
@@ -578,14 +553,14 @@ ggplot(x2, aes(log10(V5), log10(V3))) +
 ![](../plot/unnamed-chunk-7-1.png)<!-- -->
 
 ```r
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/KOPTK1_N-On-off_rpkm.png", width = 16, height = 16, units = "cm")
+ggsave("../Paper_submission/Illustrator/Plots/KOPTK1_N-On-off_rpkm.png", width = 16, height = 16, units = "cm")
 ```
 
 ## Western blot error bar
 
 
 ```r
-x = read.xls("~/Documents/research/tall/T-ALL_manuscript/Experiment_Validation/CRISPR/H3K4me1_H3K27ac_WB.xlsx")[,1:4]
+x = read.xls("../Experiment_Validation/CRISPR/H3K4me1_H3K27ac_WB.xlsx")[,1:4]
 x2 = melt(x)
 
 #anova test.
@@ -691,7 +666,7 @@ ggplot(cuts, aes(variable, fit,
 ![](../plot/unnamed-chunk-8-1.png)<!-- -->
 
 ```r
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/kop_ac_blot.pdf", width = 6, height = 6, units = "cm")
+ggsave("../Paper_submission/Illustrator/Plots/kop_ac_blot.pdf", width = 6, height = 6, units = "cm")
 ```
 
 ## Fold enrichment of enriched regions
@@ -700,11 +675,11 @@ ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/
 ```r
 ##formula: ((NOTCH1+histone)/histone)/(NOTCH1/Genome). All values are in genomic occupancy in bp.
 #fc = (n/h)/(n_bp/genome)
-n = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/bed/FindER.1.0.0b/Hist_notch1_bound.txt")
-r = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/bed/FindER.1.0.0b/Hist_runx1_bound.txt")
-rn = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/bed/FindER.1.0.0b/Hist_RUNX1+NOTCH1_bound.txt")
-#rn = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/bed/FindER.1.0.0b/Hist_NOTCH1+RUNX1_bound.txt")
-h = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/bed/FindER.1.0.0b/Histone_bp.txt")
+n = read.table("../Data/bed/FindER.1.0.0b/Hist_notch1_bound.txt")
+r = read.table("../Data/bed/FindER.1.0.0b/Hist_runx1_bound.txt")
+rn = read.table("../Data/bed/FindER.1.0.0b/Hist_RUNX1+NOTCH1_bound.txt")
+#rn = read.table("../Data/bed/FindER.1.0.0b/Hist_NOTCH1+RUNX1_bound.txt")
+h = read.table("../Data/bed/FindER.1.0.0b/Histone_bp.txt")
 
 #occupancy of region of interests
 n_bp = 19357368
@@ -795,8 +770,8 @@ ggarrange(p1, p2, ncol = 1, nrow = 2, heights =c(1, 1.15))
 
 
 ```r
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_GeneID_RPKM.txt", head =T)
-y = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v69_genes.bed")
+x = read.table("../Data/table_GeneID_RPKM.txt", head =T)
+y = read.table("../Dataset/Genome_features/hg19v69_genes.bed")
 x2 = merge(x,y, by.x = "A.geneID.RPKM", by.y = "V5", all.x = T)
 x3 = x2[,c(29,1:24)]
 x4 <- x3[grep("ENSG00000136997|ENSG00000159216|ENSG00000135144|ENSG00000188290|ENSG00000074181|ENSG00000105810|ENSG00000135446|ENSG00000170312|ENSG00000147883|ENSG00000067955|ENSG00000140443|ENSG00000118513", x3$A.geneID.RPKM), c(1,3:25)]
@@ -881,7 +856,7 @@ library(patchwork)
 ![](../plot/unnamed-chunk-10-1.png)<!-- -->
 
 ```r
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/myc_mrna.pdf", height = 5, width = 8)
+ggsave("../Paper_submission/Illustrator/Plots/myc_mrna.pdf", height = 5, width = 8)
 ```
 
 
@@ -894,18 +869,18 @@ library(reshape2)
 library(tidyverse)
 library(pheatmap)
 
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_GeneID_RPKM.txt", head =T)
-y = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v75_genes")[,c(1,7)]
+x = read.table("../Data/table_GeneID_RPKM.txt", head =T)
+y = read.table("../Dataset/Genome_features/hg19v75_genes")[,c(1,7)]
 x2 = merge(x,y, by.x = "A.geneID.RPKM", by.y = "V1", all.x = T)
 
 
 #plot DE genes in KOPTK1-RUNX1-KD
-a = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_RUNX1-On-Off/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")
-b = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_miseq_NSC.1_shRUNX158.1/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")
-c = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_miseq_NSC.2_shRUNX158.2/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")
+a = read.table("../Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_RUNX1-On-Off/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")
+b = read.table("../Data/DEfine_out_manuscript/KOPTK1_miseq_NSC.1_shRUNX158.1/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")
+c = read.table("../Data/DEfine_out_manuscript/KOPTK1_miseq_NSC.2_shRUNX158.2/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")
 #notch1 de genes
-p = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_NOTCH1-On-Off/DN.NOTCH1-Off_NOTCH1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.withGeneName")[,2]
-k = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_NOTCH1-On-Off_2ndBatch/DN.NOTCH1-Off_NOTCH1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")[,1]
+p = read.table("../Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_NOTCH1-On-Off/DN.NOTCH1-Off_NOTCH1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.withGeneName")[,2]
+k = read.table("../Data/DEfine_out_manuscript/KOPTK1_NOTCH1-On-Off_2ndBatch/DN.NOTCH1-Off_NOTCH1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")[,1]
 
 #r
 length(union(union(a$V1, b$V1), c$V1))
@@ -926,7 +901,7 @@ length(union(p,k))
 
 ```r
 r.de = data.frame(V7 = intersect(union(union(a$V1, b$V1), c$V1), union(p,k)))
-#write.table(data.frame(r.de), "~/Documents/research/tall/T-ALL_manuscript/Data/78_genes_N_R.txt", quote = F, row.names = F, col.names = F)
+#write.table(data.frame(r.de), "../Data/78_genes_N_R.txt", quote = F, row.names = F, col.names = F)
 
 #runx1 dn union = 595
 #notch1 dn union = 587
@@ -966,7 +941,7 @@ df = data.frame(ctl, kd)
 rownames(df) = x3$V7
 
 #plot.new()
-#pdf("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/78_n.r.gene.expression.pdf", width = 12, height = 8)
+#pdf("../Paper_submission/Illustrator/Plots/78_n.r.gene.expression.pdf", width = 12, height = 8)
 pheatmap(t(df), cluster_rows = F, fontsize = 10, show_colnames = T, show_rownames = T, scale = "column", border_color = NA, gaps_row = 5, color = colorRampPalette(c("blue", "white", "red"))(20))
 ```
 
@@ -1065,7 +1040,7 @@ t.test(fc$n.ac, fc$r.ac)
 ```
 
 ```r
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/78_n.r.gene.27me-ac.pdf", width = 20, height = 16, units = "cm")
+ggsave("../Paper_submission/Illustrator/Plots/78_n.r.gene.27me-ac.pdf", width = 20, height = 16, units = "cm")
 ```
 
 
@@ -1074,11 +1049,11 @@ ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/
 
 
 ```r
-l2= read.xls("/Users/rashedulislam/GoogleDrive/T-ALL_manuscript/GSEA/REACTOME_CELL_CYCLE/leading_edge_analysis.xlsx")
+l2= read.xls("../Data/GSEA/REACTOME_CELL_CYCLE/leading_edge_analysis.xlsx")
 l = l2 %>% filter(grepl("Yes", CORE.ENRICHMENT))
 #
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_GeneID_RPKM.txt", head =T)
-y = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v69_genes.bed")
+x = read.table("../Data/table_GeneID_RPKM.txt", head =T)
+y = read.table("../Dataset/Genome_features/hg19v69_genes.bed")
 x2 = merge(x,y, by.x = "A.geneID.RPKM", by.y = "V5", all.x = T)
 x3 = x2[,c(29,1:24)]
 
@@ -1115,9 +1090,9 @@ pheatmap(t(p), cluster_rows = F, fontsize = 12, show_colnames = F, scale = "colu
 
 ```r
 #plot DE genes in KOPTK1-RUNX1-KD
-a = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_RUNX1-On-Off/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")
-b = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_miseq_NSC.1_shRUNX158.1/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")
-c = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/DEfine_out_manuscript/KOPTK1_miseq_NSC.2_shRUNX158.2/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")
+a = read.table("../Data/DEfine_out_manuscript/KOPTK1_exCUTLL1_RUNX1-On-Off/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")
+b = read.table("../Data/DEfine_out_manuscript/KOPTK1_miseq_NSC.1_shRUNX158.1/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")
+c = read.table("../Data/DEfine_out_manuscript/KOPTK1_miseq_NSC.2_shRUNX158.2/DN.RUNX1-Off_RUNX1-On.FDR_0.05.rmin_0.005.Nmin_10.sortID.geneName")
 length(intersect(a$V1, xl2$PROBE))
 ```
 
@@ -1164,7 +1139,7 @@ rownames(ap2) = ap$V1
 #
 
 #add annotation for terms
-x = read.csv("~/Documents/research/tall/T-ALL_manuscript/Data/22gene_cellcyle_reactome.csv")
+x = read.csv("../Data/22gene_cellcyle_reactome.csv")
 #Cell_Cycle_Checkpoints
 x = data.frame(gene = c("YWHAE", "SEH1L", "HIST1H2BK", "DYNLL1", "CDC25A", "CCNB1", "DBF4", "CHEK1", "B9D2", "BUB3", "HIST1H4C", "BUB1", "HIST1H2BD", "HIST1H4E", "HIST1H2BC"), val = rep(1,15))
 #G0_and_Early_G1
@@ -1208,7 +1183,7 @@ save_pheatmap_pdf <- function(x, filename, width=10, height=6) {
    dev.off()
 }
 
-save_pheatmap_pdf(xx, "~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/cellcycle-heatmap.pdf")
+save_pheatmap_pdf(xx, "../Paper_submission/Illustrator/Plots/cellcycle-heatmap.pdf")
 ```
 
 ```
@@ -1219,7 +1194,7 @@ save_pheatmap_pdf(xx, "~/Documents/research/tall/T-ALL_manuscript/Paper_submissi
 ```r
 #CDKs does not show consistent gene expression change. Path: plots fig- 'CDKs_exp'
 
-x = read.csv("~/Documents/research/tall/T-ALL_manuscript/Data/22gene_cellcyle_reactome.csv")
+x = read.csv("../Data/22gene_cellcyle_reactome.csv")
 x2 = x[c(1:4,11,12,68,86,91,132),c(2,7)]
 colnames(x2) = c("pathway", "FDR")
 
@@ -1245,8 +1220,8 @@ ggplot(x2, aes(x = reorder(pathway, -FDR), y = -log(FDR), fill =  -log(FDR))) +
 
 
 ```r
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_GeneID_RPKM.txt", head =T)
-y = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v69_genes.bed")
+x = read.table("../Data/table_GeneID_RPKM.txt", head =T)
+y = read.table("../Dataset/Genome_features/hg19v69_genes.bed")
 x2 = merge(x,y, by.x = "A.geneID.RPKM", by.y = "V5", all.x = T)
 x3 = x2[,c(29,1:24)]
 
@@ -1359,7 +1334,7 @@ g2 = ggplot(cuts, aes(type, fit,
   xlab("") +
   ylab("CDC25A RPKM")
 
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/cdc25a-RPKM.pdf", height = 4, width = 5)
+ggsave("../Paper_submission/Illustrator/Plots/cdc25a-RPKM.pdf", height = 4, width = 5)
 
 library("ggpubr")
 ggarrange(g1, g2, ncol = 2, nrow = 1)
@@ -1369,8 +1344,8 @@ ggarrange(g1, g2, ncol = 2, nrow = 1)
 
 ```r
 #runx1-kd only
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_GeneID_RPKM.txt", head =T)
-y = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v69_genes.bed")
+x = read.table("../Data/table_GeneID_RPKM.txt", head =T)
+y = read.table("../Dataset/Genome_features/hg19v69_genes.bed")
 x2 = merge(x,y, by.x = "A.geneID.RPKM", by.y = "V5", all.x = T)
 x3 = x2[,c(29,1:24)]
 #chek1 expression
@@ -1493,14 +1468,14 @@ ggarrange(g1, g2, ncol = 2, nrow = 1)
 
 ```r
 #signal at promoter of 22 genes
-g = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v69_genes.bed")
-t = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/22_cellCyclegenes.txt")
+g = read.table("../Dataset/Genome_features/hg19v69_genes.bed")
+t = read.table("../Data/22_cellCyclegenes.txt")
 gene = merge(t, g, by.x = "V1", by.y = "V6", all.x = T)
 #gene2 = gene[,c(2:6,1)]
 
 #load normalied read density at tss.pc
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/TSS2kb_numRead.32lib")
-y = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/TSS2kb_numRead.32lib.totalReads") #edit manually
+x = read.table("../Data/NumReads/TSS2kb_numRead.32lib")
+y = read.table("../Data/NumReads/TSS2kb_numRead.32lib.totalReads") #edit manually
 x2 = x[,(6:ncol(x))]
 x3 = data.frame(t(t(x2)/y$V2))
 x4 = data.frame(x$V5, x3)
@@ -1647,10 +1622,10 @@ ggplot(df2, aes(X2, log10(value), fill = X2)) +
 
 
 ```r
-cemt = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_CEMT54_RPKM_with_tissueName.txt", header = T)
-rdmap = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_roadmap59_RPKM_with_tissueName.txt", header = T)
-tall = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/24T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
-primary = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_10_primary.rpkm", header = T)
+cemt = read.table("../Data/table_CEMT54_RPKM_with_tissueName.txt", header = T)
+rdmap = read.table("../Data/table_roadmap59_RPKM_with_tissueName.txt", header = T)
+tall = read.table("../Data/24T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
+primary = read.table("../Data/table_10_primary.rpkm", header = T)
 colnames(primary) = c("geneID","Primary_10", "Primary_1", "Primary_2", "Primary_3", "Primary_4", "Primary_5", "Primary_6", "Primary_7", "Primary_8", "Primary_9")
 #4star cells are ESC cells. See roadmap supplementary.
 all = inner_join(tall, cemt) %>%
@@ -1756,7 +1731,7 @@ ggplot(cdc25a, aes(Type, fit,
 ![](../plot/unnamed-chunk-14-2.png)<!-- -->
 
 ```r
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/cdc25a-exp.pdf", height = 4, width = 5)
+ggsave("../Paper_submission/Illustrator/Plots/cdc25a-exp.pdf", height = 4, width = 5)
 ```
 
 
@@ -1764,8 +1739,8 @@ ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/
 
 
 ```r
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_GeneID_RPKM.txt", head =T)
-y = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v69_genes.bed")
+x = read.table("../Data/table_GeneID_RPKM.txt", head =T)
+y = read.table("../Dataset/Genome_features/hg19v69_genes.bed")
 x2 = merge(x,y, by.x = "A.geneID.RPKM", by.y = "V5", all.x = T)
 x3 = x2[,c(29,1:24)]
 
@@ -1936,7 +1911,7 @@ library(patchwork)
 ![](../plot/unnamed-chunk-15-1.png)<!-- -->
 
 ```r
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/4gene-exp.pdf", height = 8, width = 12)
+ggsave("../Paper_submission/Illustrator/Plots/4gene-exp.pdf", height = 8, width = 12)
 
 
 #MYC expression
@@ -2012,14 +1987,14 @@ ggplot(aes(type, fit,
 ![](../plot/unnamed-chunk-15-3.png)<!-- -->
 
 ```r
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/FGR-exp.pdf", width = 6, height = 12, units = "cm")
+ggsave("../Paper_submission/Illustrator/Plots/FGR-exp.pdf", width = 6, height = 12, units = "cm")
 ```
 
 ## Expression of genes RUNX1-KD, NOTCH1-INB
 
 
 ```r
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_GeneID_RPKM.txt", head =T)
+x = read.table("../Data/table_GeneID_RPKM.txt", head =T)
 x2 = melt(x) %>% mutate(type = ifelse(grepl("NOTCH1_Off", variable), "NOTCH1-INB",
                         ifelse(grepl("NOTCH1_On", variable), "NOTCH1-CTL", 
                                ifelse(grepl("RUNX1_On", variable), "RUNX1-CTL", "RUNX1-KD")))) %>%
@@ -2271,15 +2246,15 @@ library(patchwork)
 ![](../plot/unnamed-chunk-16-1.png)<!-- -->
 
 ```r
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/R+N_three_genes_v2.pdf", width = 14, height = 30, units = "cm")
+ggsave("../Paper_submission/Illustrator/Plots/R+N_three_genes_v2.pdf", width = 14, height = 30, units = "cm")
 ```
 
 # Scatter plot for histone makrs 
 
 
 ```r
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/KOPTK1_H3K27ac_RUNX1-On.12lib")
-y = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/KOPTK1_histone_10lib.totalReads")
+x = read.table("../Data/NumReads/KOPTK1_H3K27ac_RUNX1-On.12lib")
+y = read.table("../Data/NumReads/KOPTK1_histone_10lib.totalReads")
 x2 = x[,(6:15)]
 x3 = data.frame(t(t(x2)/y$V2))
 x4 = data.frame(x$V5, x3, x$V16, x$V17)
@@ -2299,8 +2274,8 @@ colnames(s2) = c("id", "RUNX1.On","RUNX1.Off","CutOff")
 s2$Cell = rep("shRUNX1-59", nrow(x4))
 
 #s3=notch 27ac
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/KOPTK1_NOTCH1-On_H3K27ac.bed.4lib2")
-y = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/KOPTK1_NOTCH1-On_H3K27ac.bed.4lib.totalReads")
+x = read.table("../Data/NumReads/KOPTK1_NOTCH1-On_H3K27ac.bed.4lib2")
+y = read.table("../Data/NumReads/KOPTK1_NOTCH1-On_H3K27ac.bed.4lib.totalReads")
 x2 = x[,(2:5)]
 x3 = data.frame(t(t(x2)/y$V2))
 x4 = x3
@@ -2424,8 +2399,8 @@ stable = subset(s, s$CutOff >0.5 & s$CutOff <2)
 stable2 = data.frame(str_split_fixed(stable$id, "_", 3))
 stable2$X1 <- sub("^", "chr", stable2$X1)
 #
-#write.table(dn2, "~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/DE_peaks/DN_2FC_KOPTK1_RUNX1-Off_H3K27ac.bed", row.names = F, col.names = F, quote = F, sep = "\t")
-#write.table(stable2, "~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/DE_peaks/Stable_KOPTK1_RUNX1-Off_H3K27ac.bed", row.names = F, col.names = F, quote = F, sep = "\t")
+#write.table(dn2, "../Data/NumReads/DE_peaks/DN_2FC_KOPTK1_RUNX1-Off_H3K27ac.bed", row.names = F, col.names = F, quote = F, sep = "\t")
+#write.table(stable2, "../Data/NumReads/DE_peaks/Stable_KOPTK1_RUNX1-Off_H3K27ac.bed", row.names = F, col.names = F, quote = F, sep = "\t")
 
 #59
 dn59 = subset(s2, s2$CutOff >=2)
@@ -2436,8 +2411,8 @@ stable59 = subset(s2, s2$CutOff >0.5 & s2$CutOff <2)
 stable59.2 = data.frame(str_split_fixed(stable59$id, "_", 3))
 stable59.2$X1 <- sub("^", "chr", stable59.2$X1)
 #
-#write.table(dn59.2, "~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/DE_peaks/DN_2FC_KOPTK1_RUNX1-Off2_H3K27ac.bed", row.names = F, col.names = F, quote = F, sep = "\t")
-#write.table(stable59.2, "~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/DE_peaks/Stable_KOPTK1_RUNX1-Off2_H3K27ac.bed", row.names = F, col.names = F, quote = F, sep = "\t")
+#write.table(dn59.2, "../Data/NumReads/DE_peaks/DN_2FC_KOPTK1_RUNX1-Off2_H3K27ac.bed", row.names = F, col.names = F, quote = F, sep = "\t")
+#write.table(stable59.2, "../Data/NumReads/DE_peaks/Stable_KOPTK1_RUNX1-Off2_H3K27ac.bed", row.names = F, col.names = F, quote = F, sep = "\t")
 
 #notch
 dn.n = subset(s3, s3$CutOff >=2)
@@ -2448,8 +2423,8 @@ stable59 = subset(s3, s3$CutOff >0.5 & s3$CutOff <2)
 stable59.2 = data.frame(str_split_fixed(stable59$id, "_", 3))
 stable59.2$X1 <- sub("^", "chr", stable59.2$X1)
 #
-#write.table(dn.n.2, "~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/DE_peaks/DN_2FC_KOPTK1_NOTCH1-Off_H3K27ac.bed", row.names = F, col.names = F, quote = F, sep = "\t")
-#write.table(stable59.2, "~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/DE_peaks/Stable_KOPTK1_NOTCH1-Off_H3K27ac.bed", row.names = F, col.names = F, quote = F, sep = "\t")
+#write.table(dn.n.2, "../Data/NumReads/DE_peaks/DN_2FC_KOPTK1_NOTCH1-Off_H3K27ac.bed", row.names = F, col.names = F, quote = F, sep = "\t")
+#write.table(stable59.2, "../Data/NumReads/DE_peaks/Stable_KOPTK1_NOTCH1-Off_H3K27ac.bed", row.names = F, col.names = F, quote = F, sep = "\t")
 
 #get num of up and dn peaks
 #dn in runx-kd 58
@@ -2472,9 +2447,9 @@ up = subset(s3, s3$CutOff <= 0.5)
 #overlap DN between rx58 vs notch = 3498
 
 #TSS2k.pc associated DN peaks
-tss58 = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/DE_peaks/DN_2FC_KOPTK1_RUNX1-Off_H3K27ac_TSS2k.pc.bed")
-tss59 = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/DE_peaks/DN_2FC_KOPTK1_RUNX1-Off2_H3K27ac_TSS2k.pc.bed")
-tssnotch = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/DE_peaks/DN_2FC_KOPTK1_NOTCH1-Off_H3K27ac_TSS2k.pc.bed")
+tss58 = read.table("../Data/NumReads/DE_peaks/DN_2FC_KOPTK1_RUNX1-Off_H3K27ac_TSS2k.pc.bed")
+tss59 = read.table("../Data/NumReads/DE_peaks/DN_2FC_KOPTK1_RUNX1-Off2_H3K27ac_TSS2k.pc.bed")
+tssnotch = read.table("../Data/NumReads/DE_peaks/DN_2FC_KOPTK1_NOTCH1-Off_H3K27ac_TSS2k.pc.bed")
 
 dn58.tss = inner_join(dn, tss58, by = c('id' = 'V4'))
 dn58.enh = anti_join(dn, tss58, by = c('id' = 'V4'))
@@ -2535,8 +2510,8 @@ Table: proportion of dn peaks
 
 ```r
 #Line plot
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/KOPTK1_H3K27ac_RUNX1-On.12lib")
-y = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/KOPTK1_histone_10lib.totalReads")
+x = read.table("../Data/NumReads/KOPTK1_H3K27ac_RUNX1-On.12lib")
+y = read.table("../Data/NumReads/KOPTK1_histone_10lib.totalReads")
 x2 = x[,(6:15)]
 x3 = data.frame(t(t(x2)/y$V2))
 x4 = data.frame(x$V5, x3, x$V16, x$V17)
@@ -2585,9 +2560,9 @@ ggplot(aes(x = rank, y= (value*10e3), colour = variable)) +
 
 ```r
 ## new analysis
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NOTCH1_peakSummit_5k.profile.colMean.KOPTK1.35lib", header = T)[2:501,]
-#x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/RUNX1+NOTCH1_summit_5kb.profile.colMean.KOPTK1.35lib", header = T)[2:501,]
-#x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/RUNX1+NOTCH1_summit_5kb.profile.colMean.KOPTK1.35lib", header = T)[2:501,]
+x = read.table("../Data/NOTCH1_peakSummit_5k.profile.colMean.KOPTK1.35lib", header = T)[2:501,]
+#x = read.table("../Data/RUNX1+NOTCH1_summit_5kb.profile.colMean.KOPTK1.35lib", header = T)[2:501,]
+#x = read.table("../Data/RUNX1+NOTCH1_summit_5kb.profile.colMean.KOPTK1.35lib", header = T)[2:501,]
 
 x= data.frame(
 H3K27me3_NOTCH1.On = x$KOPTK1_NOTCH1.On_H3K27me3.Notch_w4h_peaks_summit_5kb.bed.profile.colMean,
@@ -2632,9 +2607,9 @@ p1 = k.ac5 %>%
 
 
 #
-#x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NOTCH1_peakSummit_5k.profile.colMean.KOPTK1.35lib", header = T)[2:501,]
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/RUNX1_peakSummit_5k.profile.colMean.36lib", header = T)[2:501,]
-#x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/RUNX1+NOTCH1_summit_5kb.profile.colMean.KOPTK1.35lib", header = T)[2:501,]
+#x = read.table("../Data/NOTCH1_peakSummit_5k.profile.colMean.KOPTK1.35lib", header = T)[2:501,]
+x = read.table("../Data/RUNX1_peakSummit_5k.profile.colMean.36lib", header = T)[2:501,]
+#x = read.table("../Data/RUNX1+NOTCH1_summit_5kb.profile.colMean.KOPTK1.35lib", header = T)[2:501,]
 
 x= data.frame(
 H3K27me3_RUNX1.On = x$KOPTK1_RUNX1.On_H3K27me3.RUNX1_peaks_summit_5kb.bed.profile.colMean,
@@ -2686,7 +2661,7 @@ library(patchwork)
 ![](../plot/unnamed-chunk-18-1.png)<!-- -->
 
 ```r
-ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/Plots/R_N_27ac-me3.pdf", width = 20, height = 14, units = "cm")
+ggsave("../Paper_submission/Illustrator/Plots/R_N_27ac-me3.pdf", width = 20, height = 14, units = "cm")
 ```
 
 
@@ -2698,8 +2673,8 @@ ggsave("~/Documents/research/tall/T-ALL_manuscript/Paper_submission/Illustrator/
 ```r
 library(dendextend)
 
-k = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/25T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
-primary = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/table_10_primary.rpkm", header = T)
+k = read.table("../Data/25T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
+primary = read.table("../Data/table_10_primary.rpkm", header = T)
 colnames(primary) = c("geneID","T-ALL.0", "T-ALL.1", "T-ALL.2", "T-ALL.3", "T-ALL.4", "T-ALL.5", "T-ALL.6", "T-ALL.7", "T-ALL.8", "T-ALL.9")
 k2 = merge(k, primary)
 k3 = k2 %>% select(-contains("CUTLL"), -contains("90.pc"))
@@ -2733,8 +2708,8 @@ plot(d, horiz  = F)
 
 
 ```r
-x = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/TSS2kb_numRead.32lib")
-y = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/NumReads/TSS2kb_numRead.32lib.totalReads") #edit manually
+x = read.table("../Data/NumReads/TSS2kb_numRead.32lib")
+y = read.table("../Data/NumReads/TSS2kb_numRead.32lib.totalReads") #edit manually
 x2 = x[,(6:ncol(x))]
 x3 = data.frame(t(t(x2)/y$V2))
 x4 = data.frame(x$V5, x3)
@@ -2745,7 +2720,7 @@ r.on = select(x4, contains("KOPTK1_RUNX1-On"))
 r.off = select(x4, starts_with("KOPTK1_RUNX1-Off_"))
 r.off2 = select(x4, starts_with("KOPTK1_RUNX1-Off2"))
 
-k = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/25T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
+k = read.table("../Data/25T-ALL_RPKM_HiSeq_MiSeq_libraries.txt", header = T)
 k2 = data.frame(NOTCH1.On = k$KOPTK1_NOTCH1.On.pc.rpkm, NOTCH1.Off = k$KOPTK1_NOTCH1.Off.pc.rpkm,
                 RUNX1.On = k$KOPTK1_RUNX1.On.pc.rpkm, RUNX1.Off = k$KOPTK1_RUNX1.Off.pc.rpkm, RUNX1.Off2 = k$KOPTK1_RUNX1.Off59.pc.rpkm)
 
@@ -2906,7 +2881,7 @@ for (i in 1:6) {
 ```r
 library(gdata)
 library(pheatmap)
-df = read.xls("~/Documents/research/tall/T-ALL_manuscript/Data/rpkm_TSSsignal_cor.xlsx")
+df = read.xls("../Data/rpkm_TSSsignal_cor.xlsx")
 df2 = df[,2:6]
 rownames(df2) = df$Mark
 pheatmap(df2, border_color = "Black", display_numbers = T, number_color = "black", fontsize_number = 16, fontsize = 16)
@@ -2920,11 +2895,11 @@ pheatmap(df2, border_color = "Black", display_numbers = T, number_color = "black
 ```r
 #T-ALL samples
 #T-ALL details mutation files
-n = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL NOTCH1 variant details Jun 15 2017.tsv", fill = T, head =T)
-r = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL RUNX1 variant details Jun 15 2017.tsv", fill = T, head =T)
+n = read.delim("../Data/COSMIC/T-ALL NOTCH1 variant details Jun 15 2017.tsv", fill = T, head =T)
+r = read.delim("../Data/COSMIC/T-ALL RUNX1 variant details Jun 15 2017.tsv", fill = T, head =T)
 #T-ALL details mutation count files
-nc = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL NOTCH1 variant count Jun 15 2017.tsv", fill = T, head =T)
-rc = read.delim("~/Documents/research/tall/T-ALL_manuscript/Data/COSMIC/T-ALL RUNX1 variant count Jun 15 2017.tsv", fill = T, head =T)
+nc = read.delim("../Data/COSMIC/T-ALL NOTCH1 variant count Jun 15 2017.tsv", fill = T, head =T)
+rc = read.delim("../Data/COSMIC/T-ALL RUNX1 variant count Jun 15 2017.tsv", fill = T, head =T)
 
 #plot
 #dom <- data.frame(Gene = c("NOTCH1", "NOTCH1","NOTCH1", "NOTCH1", "NOTCH1", "NOTCH1", "RUNX1","RUNX1"), Position = c(1571,1622, 1674,1722, 2311,2556, 49,182))
@@ -2933,7 +2908,7 @@ dom <- data.frame(Gene = c("NOTCH1", "NOTCH1", "NOTCH1", "NOTCH1", "RUNX1","RUNX
 nc2 = data.frame(nc, Gene = rep("NOTCH1", nrow(nc)))
 rc2 = data.frame(rc, Gene = rep("RUNX1", nrow(rc)))
 #plot.new()
-#pdf("~/Documents/research/tall/T-ALL_manuscript/Figures/plots_paper/N.R.mut.3.pdf", height = 4, width = 12, onefile = F)
+#pdf("../Figures/plots_paper/N.R.mut.3.pdf", height = 4, width = 12, onefile = F)
 ggplot(rbind(nc2,rc2), aes(Position, Count, color = Type)) +
   geom_point(aes(fill=Type), 
        colour="black",pch=21,size = 3) +
@@ -3010,7 +2985,7 @@ length(intersect(n$Sample.ID, r$Sample.ID)) #469 n and r samples overlap
 
 ```r
 #all GTEX data is saved in "~/Documents/Data/GTEx/"
-a = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/RUNX1_NOTCH1_MYC_expression_GTEx.txt", fill = T, head = T)[-1,]
+a = read.table("../Data/RUNX1_NOTCH1_MYC_expression_GTEx.txt", fill = T, head = T)[-1,]
 a2 = a[,3:11690]
 rownames(a2) = c("MYC", "NOTCH1", "RUNX1")
 a3 = as.data.frame(t(a2))
@@ -3084,7 +3059,7 @@ cor(a3[,2],a3[,3], method = "spearman") #RUNX1 vs NOTCH1 =0.4766063
 m = read.csv("~/Documents/Data/GTEx/GTEx_v7_Annotations_SampleAttributesDS.csv")
 m2 = m[,c(1,6:7)]
 
-a = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/RUNX1_NOTCH1_MYC_expression_GTEx.txt", fill = T, head = T)[-1,]
+a = read.table("../Data/RUNX1_NOTCH1_MYC_expression_GTEx.txt", fill = T, head = T)[-1,]
 a2 = a[,3:11690]
 rownames(a2) = c("MYC", "NOTCH1", "RUNX1")
 a3 = as.data.frame(t(a2))
@@ -3111,7 +3086,7 @@ am %>%
 
 ```r
 #cdc25A vs runx1
-a = read.table("~/Documents/research/tall/T-ALL_manuscript/Data/RUNX1_CDC25A_expression_GTEx.txt", fill = T, head = F)
+a = read.table("../Data/RUNX1_CDC25A_expression_GTEx.txt", fill = T, head = F)
 #a[,1:3]
 a2 = a[-2,2:11690] 
 
