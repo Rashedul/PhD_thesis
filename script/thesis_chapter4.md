@@ -1,5 +1,3 @@
-
-
 ## PCA
 
 
@@ -687,7 +685,7 @@ library(patchwork)
 (H3K27ac + H3K27me3 + H3K36me3 + H3K4me1 + H3K4me3 + H3K9me3 + DNAme + RNA) + plot_layout(ncol = 4)
 ```
 
-![](../plot/pca-1.png)<!-- -->
+![](../plot/chapter4/pca-1.png)<!-- -->
 
 ```r
 ggsave("../plot/PCA_ALL_v2.pdf", width = 50, height = 20, units = "cm")
@@ -874,55 +872,55 @@ ggsave(filename=paste("../plot/RNA-seq/", geneName,"_boxplot.pdf"), width = 16, 
 gene_expression("LEF1") #chr4:108,040,003-108,181,134
 ```
 
-![](../plot/unnamed-chunk-2-1.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-2-1.png)<!-- -->
 
 ```r
 gene_expression("BCL2") #chr18:63,120,162-63,324,334
 ```
 
-![](../plot/unnamed-chunk-2-2.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-2-2.png)<!-- -->
 
 ```r
 gene_expression("CBFA2T3") #final: chr16:88,869,712-88,950,221; other views: chr16:88,861,001-88,910,000; chr16:88,869,155-88,980,514; 
 ```
 
-![](../plot/unnamed-chunk-2-3.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-2-3.png)<!-- -->
 
 ```r
 gene_expression("CRTC1") #chr19:18,679,431-18,780,982
 ```
 
-![](../plot/unnamed-chunk-2-4.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-2-4.png)<!-- -->
 
 ```r
 gene_expression("WNT3") 
 ```
 
-![](../plot/unnamed-chunk-2-5.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-2-5.png)<!-- -->
 
 ```r
 gene_expression("WNT10A") 
 ```
 
-![](../plot/unnamed-chunk-2-6.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-2-6.png)<!-- -->
 
 ```r
 gene_expression("ROR1") 
 ```
 
-![](../plot/unnamed-chunk-2-7.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-2-7.png)<!-- -->
 
 ```r
 gene_expression("MAPK3") 
 ```
 
-![](../plot/unnamed-chunk-2-8.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-2-8.png)<!-- -->
 
 ```r
 gene_expression("LILRB3")
 ```
 
-![](../plot/unnamed-chunk-2-9.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-2-9.png)<!-- -->
 
 ## DE regions
 
@@ -947,7 +945,7 @@ ggplot(x, aes(V2, V1, fill = V3)) +
   coord_flip()
 ```
 
-![](../plot/de_regions-1.png)<!-- -->
+![](../plot/chapter4/de_regions-1.png)<!-- -->
 
 ```r
 ggsave("../plot/Num_DE_regions_CLL_vs_others.pdf", width = 20, height = 20, units = "cm")
@@ -1004,7 +1002,7 @@ ggplot(x, aes(V2, V1, fill = V3)) +
   coord_flip()
 ```
 
-![](../plot/de_regions-2.png)<!-- -->
+![](../plot/chapter4/de_regions-2.png)<!-- -->
 
 ```r
 ggsave("../plot/Num_DE_regions_cell_vs_others_6marks.pdf", width = 20, height = 20, units = "cm")
@@ -1013,7 +1011,6 @@ ggsave("../plot/Num_DE_regions_cell_vs_others_6marks.pdf", width = 20, height = 
 library(forcats)
 x = read_tsv("../data/de_chipseq/greatExportAll_H3K4me1_CLL.tsv")
 ```
-
 
 ```r
 x %>% filter(Hyper_FDR_QVal <= 0.01) %>%
@@ -1026,14 +1023,70 @@ x %>% filter(Hyper_FDR_QVal <= 0.01) %>%
   theme_bw()
 ```
 
-![](../plot/de_regions-3.png)<!-- -->
+![](../plot/chapter4/de_regions-3.png)<!-- -->
 
 ```r
 ggsave("../plot/H3K4me1_CLL_GREAT.pdf", width = 20, height = 20, units = "cm")
 ```
 
+# expression of lef1 targets
 
-## H3k27ac heatmap 
+
+```r
+e = read.table("../data/table_EGA_CEMT.txt", head = T)
+
+#lef target
+#lef = read_tsv("../data/cll_manuscript/genebody_cll_UPgenes.txt", col_names = F)
+lef = read_tsv("../data/cll_manuscript/TSS5kb_cll_UPgenes.txt", col_names = F)
+#lef = read_tsv("../data/cll_manuscript/TSS5kb_genebody_cll_UPgenes_v2.txt", col_names = F)
+
+colnames(lef) = "ENSG"
+e2 = left_join(lef, e) %>% select(starts_with("CLL")) %>% 
+  melt() %>%
+  mutate(Type = "lef-target")
+
+#non-lef target
+nlef = read.table("../data/RNA-seq/DESeq2_uCLL_mCLL_Bcells/Bcell_vs_CLL_DN.txt.genebody.pc")
+nlef = data.frame(ENSG = unique(nlef$V7)) 
+nlef = anti_join(nlef, lef)
+
+e3 = left_join(nlef, e) %>% select(starts_with("CLL")) %>% 
+  melt() %>%
+  mutate(Type = "non-lef")
+ 
+rbind(e2, e3) %>%
+  ggplot(aes(Type, log10(value+0.001))) +
+  geom_boxplot(outlier.shape = NA)  +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(fill = NA, colour = "gray", size = 1),
+        strip.background =element_rect(fill="white"),
+        axis.text = element_text(color = "black"),
+        legend.position = "bottom")
+```
+
+![](../plot/chapter4/unnamed-chunk-3-1.png)<!-- -->
+
+```r
+ggsave(filename=paste("../plot/CLL_manuscript/lef_target_exp.pdf"), width = 12, height = 16, units = "cm", device = 'pdf')
+
+t.test(e2$value, e3$value)
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  e2$value and e3$value
+## t = 12.876, df = 10113, p-value < 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  24.92220 33.87263
+## sample estimates:
+## mean of x mean of y 
+##  52.19060  22.79318
+```
+
+# H3k27ac heatmap 
 
 
 ```r
@@ -1083,7 +1136,7 @@ pheatmap(x2,
          gaps_col = c(n1, n1+n2, n1+n2+n3, n1+n2+n3+n4, n1+n2+n3+n4+n5))
 ```
 
-![](../plot/H2K27ac_heatmap_CLL_4bcell-1.png)<!-- -->
+![](../plot/chapter4/H2K27ac_heatmap_CLL_4bcell-1.png)<!-- -->
 
 ```r
 #dev.off()
@@ -1178,44 +1231,44 @@ ggsave(filename=paste("../plot/RNA-seq/", geneName,"_boxplot.pdf"), width = 16, 
 gene_expression("EP300") 
 ```
 
-![](../plot/unnamed-chunk-4-1.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-4-1.png)<!-- -->
 
 ```r
 gene_expression("CREBBP") 
 ```
 
-![](../plot/unnamed-chunk-4-2.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-4-2.png)<!-- -->
 
 ```r
 # de expressed in CLL
 gene_expression("BCL2") 
 ```
 
-![](../plot/unnamed-chunk-4-3.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-4-3.png)<!-- -->
 
 ```r
 gene_expression("CBFA2T3") 
 ```
 
-![](../plot/unnamed-chunk-4-4.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-4-4.png)<!-- -->
 
 ```r
 gene_expression("CCR7") 
 ```
 
-![](../plot/unnamed-chunk-4-5.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-4-5.png)<!-- -->
 
 ```r
 gene_expression("ETV6") 
 ```
 
-![](../plot/unnamed-chunk-4-6.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-4-6.png)<!-- -->
 
 ```r
 gene_expression("FGR") 
 ```
 
-![](../plot/unnamed-chunk-4-7.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-4-7.png)<!-- -->
 
 ```r
 #expression by de h3k27ac
@@ -1265,7 +1318,7 @@ data %>%
         legend.position = "none")
 ```
 
-![](../plot/unnamed-chunk-4-8.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-4-8.png)<!-- -->
 
 ```r
 ggsave(filename=paste("../plot/RNA-seq/de_h3k27ac_3cat_v2.pdf"), width = 16, height = 12, units = "cm", device = 'pdf')
@@ -1455,7 +1508,7 @@ pheatmap(log(x2+0.001),
          gaps_col = c(n1, n1+n2, n1+n2+n3, n1+n2+n3+n4))
 ```
 
-![](../plot/unnamed-chunk-5-1.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-5-1.png)<!-- -->
 
 ```r
 #dev.off()
@@ -1565,7 +1618,7 @@ df %>%
         legend.position = "bottom")
 ```
 
-![](../plot/unnamed-chunk-7-1.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-7-1.png)<!-- -->
 
 ```r
 ggsave(filename=paste("../plot/CLL_manuscript/avg_meth.pdf"), width = 16, height = 10, units = "cm", device = 'pdf')
@@ -1859,7 +1912,7 @@ df %>%
         axis.ticks.x=element_blank())
 ```
 
-![](../plot/unnamed-chunk-8-1.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-8-1.png)<!-- -->
 
 ```r
 ggsave(filename=paste("../plot/CLL_manuscript/avg_meth_celltype_enhancers.pdf"), width = 16, height = 10, units = "cm", device = 'pdf')
@@ -1884,7 +1937,7 @@ pheatmap(x, show_rownames = F,
          annotation_col = anno)
 ```
 
-![](../plot/unnamed-chunk-9-1.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-9-1.png)<!-- -->
 
 ```r
 #dev.off()
@@ -1934,7 +1987,7 @@ ggplot(xm, aes(type, value, color = type)) +
         legend.position = "bottom")
 ```
 
-![](../plot/unnamed-chunk-9-2.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-9-2.png)<!-- -->
 
 ```r
 ggsave(filename=paste("../plot/CLL_manuscript/high_low_met.pdf"), width = 12, height = 16, units = "cm", device = 'pdf')
@@ -2030,7 +2083,7 @@ ggsurvplot(fit,
           palette = c("red", "blue"))
 ```
 
-![](../plot/unnamed-chunk-9-3.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-9-3.png)<!-- -->
 
 ```r
 ggsave(filename=paste("../plot/CLL_manuscript/cemt_ggsurvplot_v2.pdf"), width = 16, height = 12, units = "cm", device = 'pdf')
@@ -2056,5 +2109,5 @@ xm2 %>%
   geom_jitter()
 ```
 
-![](../plot/unnamed-chunk-9-4.png)<!-- -->
+![](../plot/chapter4/unnamed-chunk-9-4.png)<!-- -->
 
