@@ -1,28 +1,5 @@
 
-
-###load libs
-
-Run this chunk before you run entire rmd file.
-
-
-```r
-setwd("~/Documents/cris_analysis/script/")
-getwd()
-```
-
-```
-## [1] "/Users/rashedulislam/Documents/cris_analysis/script"
-```
-
-```r
-library(gdata)
-library(tidyverse)
-library(caret)
-library(reshape2)
-library(Rmisc)
-```
-
-# confusion matrix
+# Confusion matrix
 
 
 ```r
