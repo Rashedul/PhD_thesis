@@ -1,4 +1,5 @@
 
+
 ## Number of superenhancer 
 
 
@@ -12,7 +13,7 @@ ggplot(df, aes(variable, value)) +
   theme_linedraw()
 ```
 
-![](../plot/unnamed-chunk-2-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-2-1.png)<!-- -->
 
 
 ## Differential regions for all marks
@@ -208,7 +209,7 @@ rbind( n, r ) %>%
   facet_grid(Cell~Mark, scales="free") 
 ```
 
-![](../plot/unnamed-chunk-3-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-3-1.png)<!-- -->
 
 ```r
 ##############
@@ -275,7 +276,7 @@ rbind(dn, up, st) %>%
     theme_bw()
 ```
 
-![](../plot/unnamed-chunk-3-2.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-3-2.png)<!-- -->
 
 ```r
 ##############
@@ -317,7 +318,7 @@ ggplot(bx2, aes(x = log10(Width), y = -log10(FC),colour = DE)) +
     theme(legend.position="none")
 ```
 
-![](../plot/unnamed-chunk-3-3.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-3-3.png)<!-- -->
 
 ## profile for de peaks
 
@@ -374,7 +375,7 @@ k.ac3 %>%
         legend.position = "none") 
 ```
 
-![](../plot/unnamed-chunk-4-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-4-1.png)<!-- -->
 
 ```r
 #    theme(axis.text = element_text(color = "black", angle = 00, hjust = 1))
@@ -406,7 +407,7 @@ ggplot(xy, aes(Cell, log10(V5))) +
         axis.text = element_text(color = "black"))
 ```
 
-![](../plot/unnamed-chunk-5-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-5-1.png)<!-- -->
 
 ```r
 ggsave("/Users/rashedulislam/GoogleDrive/T-ALL_manuscript/Plots/h3k27ac_len_dist.pdf", width = 10, height = 15, units = "cm")
@@ -429,7 +430,7 @@ ggplot(aes(V13, V5)) +
         axis.text = element_text(color = "black"))
 ```
 
-![](../plot/unnamed-chunk-5-2.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-5-2.png)<!-- -->
 
 ```r
 #ggsave("/Users/rashedulislam/GoogleDrive/T-ALL_manuscript/Plots/len_dist.pdf", width = 10, height = 15, units = "cm")
@@ -494,7 +495,7 @@ ggplot(x2, aes(log10(V5), log10(V3))) +
     point.padding = unit(0.3, "lines"))
 ```
 
-![](../plot/unnamed-chunk-6-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-6-1.png)<!-- -->
 
 ```r
 ggsave("../Paper_submission/Illustrator/Plots/KOPTK1_R-On-off_rpkm.png", width = 16, height = 16, units = "cm")
@@ -550,7 +551,7 @@ ggplot(x2, aes(log10(V5), log10(V3))) +
     point.padding = unit(0.3, "lines"))
 ```
 
-![](../plot/unnamed-chunk-7-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-7-1.png)<!-- -->
 
 ```r
 ggsave("../Paper_submission/Illustrator/Plots/KOPTK1_N-On-off_rpkm.png", width = 16, height = 16, units = "cm")
@@ -663,7 +664,7 @@ ggplot(cuts, aes(variable, fit,
   ylab("Ratio of (H3K27ac/H3)")
 ```
 
-![](../plot/unnamed-chunk-8-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-8-1.png)<!-- -->
 
 ```r
 ggsave("../Paper_submission/Illustrator/Plots/kop_ac_blot.pdf", width = 6, height = 6, units = "cm")
@@ -764,14 +765,14 @@ library("ggpubr")
 ggarrange(p1, p2, ncol = 1, nrow = 2, heights =c(1, 1.15))
 ```
 
-![](../plot/unnamed-chunk-9-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-9-1.png)<!-- -->
 
 ## Expression of MYC in R and N cells
 
 
 ```r
 x = read.table("../Data/table_GeneID_RPKM.txt", head =T)
-y = read.table("../Dataset/Genome_features/hg19v69_genes.bed")
+y = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v69_genes.bed")
 x2 = merge(x,y, by.x = "A.geneID.RPKM", by.y = "V5", all.x = T)
 x3 = x2[,c(29,1:24)]
 x4 <- x3[grep("ENSG00000136997|ENSG00000159216|ENSG00000135144|ENSG00000188290|ENSG00000074181|ENSG00000105810|ENSG00000135446|ENSG00000170312|ENSG00000147883|ENSG00000067955|ENSG00000140443|ENSG00000118513", x3$A.geneID.RPKM), c(1,3:25)]
@@ -853,7 +854,7 @@ library(patchwork)
 (g1 | g2 | g3)
 ```
 
-![](../plot/unnamed-chunk-10-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-10-1.png)<!-- -->
 
 ```r
 ggsave("../Paper_submission/Illustrator/Plots/myc_mrna.pdf", height = 5, width = 8)
@@ -870,7 +871,7 @@ library(tidyverse)
 library(pheatmap)
 
 x = read.table("../Data/table_GeneID_RPKM.txt", head =T)
-y = read.table("../Dataset/Genome_features/hg19v75_genes")[,c(1,7)]
+y = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v75_genes")[,c(1,7)]
 x2 = merge(x,y, by.x = "A.geneID.RPKM", by.y = "V1", all.x = T)
 
 
@@ -945,7 +946,7 @@ rownames(df) = x3$V7
 pheatmap(t(df), cluster_rows = F, fontsize = 10, show_colnames = T, show_rownames = T, scale = "column", border_color = NA, gaps_row = 5, color = colorRampPalette(c("blue", "white", "red"))(20))
 ```
 
-![](../plot/unnamed-chunk-11-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-11-1.png)<!-- -->
 
 ```r
 #dev.off()
@@ -1001,7 +1002,7 @@ fc2 %>% ggplot(aes(variable, log2(value), color = mark)) +
         legend.position = "none")
 ```
 
-![](../plot/unnamed-chunk-11-2.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-11-2.png)<!-- -->
 
 ```r
 t.test(fc$n.me, fc$r.me)
@@ -1049,11 +1050,11 @@ ggsave("../Paper_submission/Illustrator/Plots/78_n.r.gene.27me-ac.pdf", width = 
 
 
 ```r
-l2= read.xls("../Data/GSEA/REACTOME_CELL_CYCLE/leading_edge_analysis.xlsx")
+l2= read.xls("/Users/rashedulislam/GoogleDrive/T-ALL_manuscript/GSEA/REACTOME_CELL_CYCLE/leading_edge_analysis.xlsx")
 l = l2 %>% filter(grepl("Yes", CORE.ENRICHMENT))
 #
 x = read.table("../Data/table_GeneID_RPKM.txt", head =T)
-y = read.table("../Dataset/Genome_features/hg19v69_genes.bed")
+y = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v69_genes.bed")
 x2 = merge(x,y, by.x = "A.geneID.RPKM", by.y = "V5", all.x = T)
 x3 = x2[,c(29,1:24)]
 
@@ -1086,7 +1087,7 @@ p = data.frame(cbind(xl4.on, xl4.off))
 pheatmap(t(p), cluster_rows = F, fontsize = 12, show_colnames = F, scale = "column", gaps_row = 7, border_color = NA, color = colorRampPalette(c("blue", "white", "red"))(100), main = "Expression of 132 leading edge genes")
 ```
 
-![](../plot/unnamed-chunk-12-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-12-1.png)<!-- -->
 
 ```r
 #plot DE genes in KOPTK1-RUNX1-KD
@@ -1170,7 +1171,7 @@ t = data.frame(t(ap2))
 xx <- pheatmap(t, annotation = annotation2, annotation_legend = F, cluster_rows = F, fontsize = 14, show_colnames = T, scale = "column", border_color = NA, gaps_row = 3, color = colorRampPalette(c("blue", "white", "red"))(100), main = "Expression of 22 leading edge cell cycle genes")
 ```
 
-![](../plot/unnamed-chunk-12-2.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-12-2.png)<!-- -->
 
 ```r
 #save heatmap
@@ -1214,14 +1215,14 @@ ggplot(x2, aes(x = reorder(pathway, -FDR), y = -log(FDR), fill =  -log(FDR))) +
   theme(legend.position="none") 
 ```
 
-![](../plot/unnamed-chunk-12-3.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-12-3.png)<!-- -->
 
 ## Promoter signal for 22 cell cycle genes
 
 
 ```r
 x = read.table("../Data/table_GeneID_RPKM.txt", head =T)
-y = read.table("../Dataset/Genome_features/hg19v69_genes.bed")
+y = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v69_genes.bed")
 x2 = merge(x,y, by.x = "A.geneID.RPKM", by.y = "V5", all.x = T)
 x3 = x2[,c(29,1:24)]
 
@@ -1340,12 +1341,12 @@ library("ggpubr")
 ggarrange(g1, g2, ncol = 2, nrow = 1)
 ```
 
-![](../plot/unnamed-chunk-13-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-13-1.png)<!-- -->
 
 ```r
 #runx1-kd only
 x = read.table("../Data/table_GeneID_RPKM.txt", head =T)
-y = read.table("../Dataset/Genome_features/hg19v69_genes.bed")
+y = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v69_genes.bed")
 x2 = merge(x,y, by.x = "A.geneID.RPKM", by.y = "V5", all.x = T)
 x3 = x2[,c(29,1:24)]
 #chek1 expression
@@ -1464,11 +1465,11 @@ library("ggpubr")
 ggarrange(g1, g2, ncol = 2, nrow = 1)
 ```
 
-![](../plot/unnamed-chunk-13-2.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-13-2.png)<!-- -->
 
 ```r
 #signal at promoter of 22 genes
-g = read.table("../Dataset/Genome_features/hg19v69_genes.bed")
+g = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v69_genes.bed")
 t = read.table("../Data/22_cellCyclegenes.txt")
 gene = merge(t, g, by.x = "V1", by.y = "V6", all.x = T)
 #gene2 = gene[,c(2:6,1)]
@@ -1616,7 +1617,7 @@ ggplot(df2, aes(X2, log10(value), fill = X2)) +
         legend.position="none")
 ```
 
-![](../plot/unnamed-chunk-13-3.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-13-3.png)<!-- -->
 
 ## Expression of CDC25A and CHEK1 in cancer vs normal tissues.
 
@@ -1702,7 +1703,7 @@ ggplot(cuts2, aes(Type, fit,
   coord_flip()
 ```
 
-![](../plot/unnamed-chunk-14-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-14-1.png)<!-- -->
 
 ```r
 #lymphoid cells
@@ -1728,7 +1729,7 @@ ggplot(cdc25a, aes(Type, fit,
   coord_flip()
 ```
 
-![](../plot/unnamed-chunk-14-2.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-14-2.png)<!-- -->
 
 ```r
 ggsave("../Paper_submission/Illustrator/Plots/cdc25a-exp.pdf", height = 4, width = 5)
@@ -1740,7 +1741,7 @@ ggsave("../Paper_submission/Illustrator/Plots/cdc25a-exp.pdf", height = 4, width
 
 ```r
 x = read.table("../Data/table_GeneID_RPKM.txt", head =T)
-y = read.table("../Dataset/Genome_features/hg19v69_genes.bed")
+y = read.table("~/Documents/research/tall/T-ALL_2015/Dataset/Genome_features/hg19v69_genes.bed")
 x2 = merge(x,y, by.x = "A.geneID.RPKM", by.y = "V5", all.x = T)
 x3 = x2[,c(29,1:24)]
 
@@ -1908,7 +1909,7 @@ library(patchwork)
 (g1 + g2 + g4 + g3)
 ```
 
-![](../plot/unnamed-chunk-15-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-15-1.png)<!-- -->
 
 ```r
 ggsave("../Paper_submission/Illustrator/Plots/4gene-exp.pdf", height = 8, width = 12)
@@ -1947,7 +1948,7 @@ ggplot(cuts, aes(type, fit,
   ylab("MYC expression")
 ```
 
-![](../plot/unnamed-chunk-15-2.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-15-2.png)<!-- -->
 
 ```r
 #FGR expression
@@ -1984,7 +1985,7 @@ ggplot(aes(type, fit,
   ylab("FGR expression")
 ```
 
-![](../plot/unnamed-chunk-15-3.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-15-3.png)<!-- -->
 
 ```r
 ggsave("../Paper_submission/Illustrator/Plots/FGR-exp.pdf", width = 6, height = 12, units = "cm")
@@ -2243,7 +2244,7 @@ library(patchwork)
 (g1 / g2 / g3)
 ```
 
-![](../plot/unnamed-chunk-16-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-16-1.png)<!-- -->
 
 ```r
 ggsave("../Paper_submission/Illustrator/Plots/R+N_three_genes_v2.pdf", width = 14, height = 30, units = "cm")
@@ -2308,7 +2309,7 @@ rbind(s,s2,s3) %>%
         axis.text = element_text(color = "black"))
 ```
 
-![](../plot/unnamed-chunk-17-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-17-1.png)<!-- -->
 
 ```r
 rbind(s,s2) %>%
@@ -2335,7 +2336,7 @@ rbind(s,s2) %>%
         axis.text = element_text(color = "black"))
 ```
 
-![](../plot/unnamed-chunk-17-2.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-17-2.png)<!-- -->
 
 ```r
 #
@@ -2385,7 +2386,7 @@ ggplot(c, aes(x = Cell, y = (count))) +
   strip.text.x = element_blank())
 ```
 
-![](../plot/unnamed-chunk-17-3.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-17-3.png)<!-- -->
 
 ```r
 ####write the up and dn bed fiels
@@ -2483,7 +2484,7 @@ t %>% filter(!grepl("NOTCH1", Cell)) %>%
   theme(legend.position="none")
 ```
 
-![](../plot/unnamed-chunk-17-4.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-17-4.png)<!-- -->
 
 ```r
 t2 = t %>% filter(!grepl("NOTCH1", Cell))
@@ -2553,7 +2554,7 @@ ggplot(aes(x = rank, y= (value*10e3), colour = variable)) +
     theme(legend.title = element_blank())
 ```
 
-![](../plot/unnamed-chunk-17-5.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-17-5.png)<!-- -->
 
 > NOTCH1 and RUNX1 enrichment
 
@@ -2658,7 +2659,7 @@ library(patchwork)
 (p1 | p2)
 ```
 
-![](../plot/unnamed-chunk-18-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-18-1.png)<!-- -->
 
 ```r
 ggsave("../Paper_submission/Illustrator/Plots/R_N_27ac-me3.pdf", width = 20, height = 14, units = "cm")
@@ -2702,7 +2703,7 @@ d <- d %>% color_branches(k=3) %>%
 plot(d, horiz  = F)
 ```
 
-![](../plot/unnamed-chunk-19-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-19-1.png)<!-- -->
 
 ## H3K27ac and rpkm correlaion
 
@@ -2887,7 +2888,7 @@ rownames(df2) = df$Mark
 pheatmap(df2, border_color = "Black", display_numbers = T, number_color = "black", fontsize_number = 16, fontsize = 16)
 ```
 
-![](../plot/unnamed-chunk-20-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-20-1.png)<!-- -->
 
 ## NOTCH1 and RUNX1 mutation and their overlap
 
@@ -2927,7 +2928,7 @@ ggplot(rbind(nc2,rc2), aes(Position, Count, color = Type)) +
         legend.position = "bottom")
 ```
 
-![](../plot/unnamed-chunk-21-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-21-1.png)<!-- -->
 
 ```r
 #dev.off()
@@ -3027,7 +3028,7 @@ library(gridExtra)
 grid.arrange(p1, p2, p3, nrow = 1)
 ```
 
-![](../plot/unnamed-chunk-22-1.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-22-1.png)<!-- -->
 
 ```r
 #correlation
@@ -3082,7 +3083,7 @@ am %>%
    theme(axis.text = element_text(color = "black"))
 ```
 
-![](../plot/unnamed-chunk-22-2.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-22-2.png)<!-- -->
 
 ```r
 #cdc25A vs runx1
@@ -3135,4 +3136,4 @@ ggplot(a4, aes(log10(RUNX1), log10(CDC25A))) +
         axis.text.x = element_text(color = "black"))
 ```
 
-![](../plot/unnamed-chunk-22-3.png)<!-- -->
+![](../plot/chaper2/unnamed-chunk-22-3.png)<!-- -->

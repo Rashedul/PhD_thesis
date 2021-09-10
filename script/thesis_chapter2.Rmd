@@ -10,7 +10,7 @@ output:
 ---
 
 ```{r global-options, include=FALSE}
-knitr::opts_chunk$set(fig.width=12, fig.height=8, fig.path='../plot/', dev = 'png', 
+knitr::opts_chunk$set(fig.width=12, fig.height=8, fig.path='../plot/chaper2/', dev = 'png', 
                       echo=TRUE, warning=FALSE, message=FALSE)
 
 knitr::opts_knit$set(root.dir = '/Users/rashedulislam/Documents/PhD_thesis/script/')
