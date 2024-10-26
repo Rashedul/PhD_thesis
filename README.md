@@ -35,6 +35,12 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 
 ## Publications 
 
+- **Rashedul Islam**, Jonathan Steif, Misha Bilenky, Annaïck Carles, Alireza Heravi-Moussavi, Sitanshu Gakkhar, Andrew P Weng, Joseph M Connors, Martin Hirst. Integrative analysis of aberrant epigenomic landscape in chronic lymphocytic leukemia. Undergoing Submission as part of IHEC Consortium Package Companions, 2024.
+
+- **Rashedul Islam**, Catherine E Jenkins, Qi Cao, Jasper Wong, Misha Bilenky, Annaïck Carles, Michelle Moksa, Andrew P Weng, Martin Hirst. [RUNX1 colludes with NOTCH1 to reprogram chromatin in T-cell acute lymphoblastic leukemia](https://www.cell.com/iscience/fulltext/S2589-0042(23)00872-6). iScience, 2023 June, 26(6):106795..
+
+- Xuehai Wang, Michael Nissen, Deanne Gracias, Manabu Kusakabe, Guillermo Simkin, Aixiang Jiang, Gerben Duns, Clementine Sarkozy, Laura Hilton, Elizabeth Chavez, Gabriela Segat, Rachel Wong, Jubin Kim, Tomohiro Aoki, **Rashedul Islam**, Christina May, Stacy Hung, Kateryna Tyshchenko, Ryan Brinkman, Martin Hirst, Aly Karsan, Ciara Freeman, Laurie Sehn, Ryan Morin, Andrew Roth, Kerry Savage, Jeffrey Craig, Sohrab Shah, Christian Steidl, David W Scott, and Andrew Weng. [Single-cell profiling reveals a memory B cell-like subtype of follicular lymphoma with increased transformation risk](https://www.nature.com/articles/s41467-022-34408-0). Nature Communications, 2022 Nov; 13(1):6772.
+
 - **Rashedul Islam**, Misha Bilenky, Andrew P. Weng, Joseph M. Connors, Martin Hirst. [CRIS: Complete Reconstruction of Immunoglobulin V-D-J Sequences from RNA-seq data](https://academic.oup.com/bioinformaticsadvances/advance-article/doi/10.1093/bioadv/vbab021/6367791?login=true). *Bioinformatics Advances*, vbab021, September 2021.
 
 - Catherine E. Jenkins, Samuel Gusscott, Rachel J. Wong, Olena O. Shevchuk, Gurneet Rana, Vincenzo Giambra, Kateryna Tyshchenko, **Rashedul Islam**, Martin Hirst, Andrew P. Weng. [RUNX1 promotes cell growth in human T-cell acute lymphoblastic leukemia by transcriptional regulation of key target genes](https://www.sciencedirect.com/science/article/abs/pii/S0301472X18302170). *Experimental Hematology*. August 2018; 64:84-96. 
