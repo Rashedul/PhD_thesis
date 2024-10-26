@@ -33,7 +33,7 @@ Over the last two decades, large scale epigenomic studies showed that aberrant e
 
 ## [Thesis at UBC library](http://hdl.handle.net/2429/80526) 
 
-## Publications 
+## PhD publications 
 
 - **Rashedul Islam**, Jonathan Steif, Misha Bilenky, Annaïck Carles, Alireza Heravi-Moussavi, Sitanshu Gakkhar, Andrew P Weng, Joseph M Connors, Martin Hirst. Integrative analysis of aberrant epigenomic landscape in chronic lymphocytic leukemia. Undergoing Submission as part of IHEC Consortium Package Companions, 2024.
 
